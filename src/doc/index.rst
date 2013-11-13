@@ -11,6 +11,8 @@ perform a set of tasks designed to achieve a specific goal for that module. Each
 module builds upon lessons learned in previous modules and is designed to
 iteratively build up the reader's knowledge base.
 
+Note that the ol3 API is still in flux, and external links to the ol3 API documentation may not reflect the functionality available in this workshop.
+
 The following modules will be covered in this workshop:
 
 .. rubric:: Fundamentals

@@ -19,8 +19,8 @@ Let's take a look at a fully working example of an ol3 map.
       <head>
         <link rel="stylesheet" href="ol3/ol.css" type="text/css">
         <style>
-          .map {
-            height: 256px;
+          #map {
+            height: 512px;
             width: 512px;
           }
         </style>
@@ -29,22 +29,20 @@ Let's take a look at a fully working example of an ol3 map.
       </head>
       <body>
         <h1>My Map</h1>
-        <div id="map" class="map"></div>
+        <div id="map"></div>
         <script type="text/javascript">
           var map = new ol.Map({
             target: 'map',
             renderer: ol.RendererHint.CANVAS,
             layers: [
-              title: "Global Imagery",
               new ol.layer.Tile({
                 source: new ol.source.TileWMS({
-                  url: 'http://maps.opengeo.org/geowebcache/service/wms',
-                  params: {'LAYERS': 'bluemarble', 'VERSION': '1.1.1'}
+                  url: 'http://demo.opengeo.org/geoserver/wms',
+                  params: {'LAYERS': 'NE1_HR_LC_SR_W_DR'}
                 })
               })
             ],
             view: new ol.View2D({
-              projection: 'EPSG:4326',
               center: [0, 0],
               zoom: 1
             })

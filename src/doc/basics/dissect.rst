@@ -34,13 +34,13 @@ OpenLayers doesn't make any guesses about the size of your map. Because of this,
 
     <link rel="stylesheet" href="ol3/ol.css" type="text/css">
     <style>
-      .map {
-        height: 256px;
+      #map {
+        height: 512px;
         width: 512px;
       }
     </style>
 
-In this case, we're using the map container's ``class`` value as a selector, and we specify the width (``512px``) and the height (``256px``) for the map container.
+In this case, we're using the map container's ``id`` value as a selector, and we specify the width (``512px``) and the height (``512px``) for the map container.
 
 The style declarations are directly included in the ``<head>`` of our document. In most cases, your map related style declarations will be a part of a larger website theme linked in external stylesheets.
 
@@ -65,13 +65,12 @@ The next step in generating your map is to include some initialization code. In 
         layers: [
           new ol.layer.Tile({
             source: new ol.source.TileWMS({
-              url: 'http://maps.opengeo.org/geowebcache/service/wms',
-              params: {'LAYERS': 'bluemarble', 'VERSION': '1.1.1'}
+              url: 'http://demo.opengeo.org/geoserver/wms',
+              params: {'LAYERS': 'NE1_HR_LC_SR_W_DR'}
             })
           })
         ],
         view: new ol.View2D({
-          projection: 'EPSG:4326',
           center: [0, 0],
           zoom: 1
         })
@@ -82,9 +81,9 @@ The next step in generating your map is to include some initialization code. In 
 
     The order of these steps is important. Before the our custom script can be executed, the OpenLayers library must be loaded. In our example, the OpenLayers library is loaded in the ``<head>`` of our document with ``<script src="ol3/ol.js"></script>``.
     
-    Similarly, our custom map initialization code (above) cannot run until the document element that serves as the viewport container, in this case ``<div class="map"></div>``, is ready. By including the initialization code at the end of the document ``<body>``, we ensure that the library is loaded and the viewport container is ready before generating our map.
+    Similarly, our custom map initialization code (above) cannot run until the document element that serves as the viewport container, in this case ``<div id="map"></div>``, is ready. By including the initialization code at the end of the document ``<body>``, we ensure that the library is loaded and the viewport container is ready before generating our map.
 
-Let's look in more detail at what the map initialization script is doing. Our script creates a new ``ol.Map`` object with a few config options:
+Let's look in more detail at what the map initialization script is doing. Our script creates a new ``ol.Map`` instance with a few config options:
 
 .. code-block:: javascript
 
@@ -92,7 +91,7 @@ Let's look in more detail at what the map initialization script is doing. Our sc
 
 We use the viewport container's ``id`` attribute value to tell the map constructor where to render the map. In this case, we pass the string value ``"map"`` as the target to the map constructor. This syntax is a shortcut for convenience. We could be more explicit and provide a direct reference to the element (e.g. ``document.getElementById("map")``).
 
-The renderer config option specifies which renderer to use. ol3 comes with 3 renderers: the DOM renderer, the Canvas renderer and the WebGL renderer. In this case we're telling our map to use the Canvas renderer. Because our images comes from a different domain, it will not work with the WebGL renderer because of the same origin policy.
+The renderer config option specifies which renderer to use. ol3 comes with 3 renderers: the DOM renderer, the Canvas renderer and the WebGL renderer. In this case we're telling our map to use the Canvas renderer. Because our images come from a different domain, it will not work with the WebGL renderer because of the same origin policy.
 
 .. code-block:: javascript
 
@@ -105,20 +104,19 @@ The layers config creates a layer to be displayed in our map:
     layers: [
       new ol.layer.Tile({
         source: new ol.source.TileWMS({
-          url: 'http://maps.opengeo.org/geowebcache/service/wms',
-          params: {'LAYERS': 'bluemarble', 'VERSION': '1.1.1'}
+          url: 'http://demo.opengeo.org/geoserver/wms',
+          params: {'LAYERS': 'NE1_HR_LC_SR_W_DR'}
         })
       })
     ],
 
 Don't worry about the syntax here if this part is new to you. Layer creation will be covered in another module. The important part to understand is that our map view is a collection of layers. In order to see a map, we need to include at least one layer.
 
-The final step is definining the view. We specify a projection, a center and a zoom level.
+The final step is definining the view. We specify a center and a zoom level.
 
 .. code-block:: javascript
 
     view: new ol.View2D({
-       projection: 'EPSG:4326',
        center: [0, 0],
        zoom: 1
     })

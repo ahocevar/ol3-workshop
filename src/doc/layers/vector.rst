@@ -24,7 +24,6 @@ Let's go back to the :ref:`WMS example <openlayers.layers.wms.example>` to get a
     .. code-block:: javascript
 
         new ol.layer.Vector({
-          title: 'Earthquakes',
           source: new ol.source.Vector({
             parser: new ol.parser.GeoJSON(),
             url: 'data/layers/7day-M2.5.json'
@@ -43,14 +42,13 @@ Let's examine that vector layer creation to get an idea of what is going on.
 .. code-block:: javascript
 
     new ol.layer.Vector({
-       title: 'Earthquakes',
-       source: new ol.source.Vector({
+      source: new ol.source.Vector({
         parser: new ol.parser.GeoJSON(),
         url: 'data/layers/7day-M2.5.json'
       })
     })
 
-The layer is given the title ``"Earthquakes"`` and some custom options. In the options object, we've included a ``source`` of type ``ol.source.Vector`` which points to a url and a parser to parse the returned document.
+In the options object, we have included a ``source`` of type ``ol.source.Vector``, which points to a url and a parser to parse the returned document.
 
 .. rubric:: Bonus Tasks
 

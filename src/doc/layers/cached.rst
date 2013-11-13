@@ -54,9 +54,9 @@ The `OpenStreetMap (OSM) <http://www.openstreetmap.org/>`_ project is an effort 
     .. code-block:: html
     
         <style>
-            .map {
+            #map {
                 width: 512px;
-                height: 256px;
+                height: 512px;
             }
             .ol-attribution ul, .ol-attribution a {
                 color: black;
@@ -92,29 +92,32 @@ is represented with an ``ol.proj.Projection`` object. The ``transform`` function
 Locations Transformed
 `````````````````````
 
-The OpenStreetMap tiles that we will be using are in a Mercator projection. Because of this, we need to set the initial center using Mercator coordinates. Since it is relatively easy to find out the coordinates for a place of interest in geographic coordinates, we use the ``ol.proj.transform`` method to turn geographic coordinates (``"EPSG:4326"``) into Mercator coordinates (``"EPSG:3857"``).
+The OpenStreetMap tiles that we will be using are in a Mercator projection. This is also the default map projection in OpenLayers. Because of this, we need to set the initial center using Mercator coordinates. Since it is relatively easy to find out the coordinates for a place of interest in geographic coordinates, we use the ``ol.proj.transform`` method to turn geographic coordinates (``"EPSG:4326"``) into Mercator coordinates (``"EPSG:3857"``).
 
 Custom Map Options
 ``````````````````
 
 .. note::
 
-    The projections we used here are the only projections that ol3 knows
-    about. For other projections, we need to configure the projection:
+    The projections we used here are the only two projections that ol3 knows
+    about. For other projections, we need to configure the projection. The
+    easiest way to do this is to use the Proj4js library, which enables
+    OpenLayers to transform coordinates between other projections. This is an
+    example for a Swiss projection:
 
 .. code-block:: javascript
 
+    Proj4js.defs['EPSG:21781'] = '+title=CH1903 / LV03 +proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs';
     var projection = ol.proj.configureProj4jsProjection({
       code: 'EPSG:21781',
       extent: [485869.5728, 76443.1884, 837076.5648, 299941.7864]
     });
 
-And we need to include two additional script tags:
+And we need to include a script tag for the Proj4js library:
 
 .. code-block:: html
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/proj4js-compressed.js" type="text/javascript"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/defs/EPSG21781.js" type="text/javascript"></script>
 
 This information can be looked up at http://spatialreference.org/, using the EPSG code.
 
@@ -131,8 +134,8 @@ Layer Creation
 
 As before, we create a layer and add it to the layers array of our map config object. This time, we accept all the default options for the source.
 
-Style
-`````
+CSS
+```
 
 .. code-block:: html
 

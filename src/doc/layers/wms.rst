@@ -31,8 +31,8 @@ Let's take a look at the following code:
       <head>
         <link rel="stylesheet" href="ol3/ol.css" type="text/css">
         <style>
-          .map {
-            height: 256px;
+          #map {
+            height: 512px;
             width: 512px;
           }
         </style>
@@ -41,7 +41,7 @@ Let's take a look at the following code:
       </head>
       <body>
         <h1>My Map</h1>
-        <div id="map" class="map"></div>
+        <div id="map"></div>
         <script type="text/javascript">
           var map = new ol.Map({
             target: 'map',
@@ -50,13 +50,12 @@ Let's take a look at the following code:
               new ol.layer.Tile({
                 title: "Global Imagery",
                 source: new ol.source.TileWMS({
-                  url: 'http://maps.opengeo.org/geowebcache/service/wms',
-                  params: {'LAYERS': 'bluemarble', 'VERSION': '1.1.1'}
+                  url: 'http://demo.opengeo.org/geoserver/wms',
+                  params: {'LAYERS': 'NE1_HR_LC_SR_W_DR'}
                 })
               })
             ],
             view: new ol.View2D({
-              projection: 'EPSG:4326',
               center: [0, 0],
               zoom: 1
             })
@@ -86,7 +85,6 @@ The ol.source.TileWMS Constructor
 ------------------------------------
 The ``ol.source.TileWMS`` constructor has a single argument which is defined by: http://ol3js.org/en/master/apidoc/ol.source.html#TileWMSOptions
 The url is the online resource of the WMS service, and params is an object literal with the parameter names and their values. Make sure to put quotes around the parameter names.
-Also, since the default WMS version is 1.3.0 now, you might need to provide a lower version in the params if your WMS does not support WMS 1.3.0.
 
 .. code-block:: javascript
 
@@ -94,8 +92,8 @@ Also, since the default WMS version is 1.3.0 now, you might need to provide a lo
       new ol.layer.Tile({
         title: "Global Imagery",
         source: new ol.source.TileWMS({
-          url: 'http://maps.opengeo.org/geowebcache/service/wms',
-          params: {'LAYERS': 'bluemarble', 'VERSION': '1.1.1'}
+          url: 'http://demo.opengeo.org/geoserver/wms',
+          params: {'LAYERS': 'NE1_HR_LC_SR_W_DR'}
         })
       })
     ]
@@ -103,8 +101,9 @@ Also, since the default WMS version is 1.3.0 now, you might need to provide a lo
 
 .. rubric:: Tasks
 
-#.  This same WMS offers a layer named ``"openstreetmap"``. Change the value of 
-    the ``LAYERS`` parameter from ``"bluemarble"`` to ``"openstreetmap"``. 
+#.  This same WMS offers a layer named ``"opengeo:borders"``, which only shows
+    the borders of the countries of the world. Change the value of 
+    the ``LAYERS`` parameter from ``"world"`` to ``"opengeo:borders"``. 
 
     Your revised ol.layer.Tile Constructor should look like:
     
@@ -113,8 +112,8 @@ Also, since the default WMS version is 1.3.0 now, you might need to provide a lo
         new ol.layer.Tile({
           title: "Global Imagery",
           source: new ol.source.TileWMS({
-            url: 'http://maps.opengeo.org/geowebcache/service/wms',
-            params: {'LAYERS': 'openstreetmap', 'VERSION': '1.1.1'}
+            url: 'http://demo.opengeo.org/geoserver/wms',
+            params: {'LAYERS': 'osm:osm'}
           })
         })
 
@@ -124,7 +123,7 @@ Also, since the default WMS version is 1.3.0 now, you might need to provide a lo
 
 .. figure:: wms1.png
    
-    A map displaying the ``"openstreetmap"`` layer as ``"image/png"``.
+    A map displaying the ``"opengeo:borders"`` layer.
 
 Having worked with dynamically rendered data from a Web Map Service, let's move
 on to learn about :ref:`cached tile services <openlayers.layers.cached>`.

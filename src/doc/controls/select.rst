@@ -19,8 +19,8 @@ Create a Vector Layer and a Select Interaction
             <head>
             <link rel="stylesheet" href="ol3/ol.css" type="text/css">
             <style>
-              .map {
-                height: 256px;
+              #map {
+                height: 512px;
                 width: 512px;
               }
             </style>
@@ -29,13 +29,13 @@ Create a Vector Layer and a Select Interaction
           </head>
           <body>
             <h1>My Map</h1>
-            <div id="map" class="map"></div>
+            <div id="map"></div>
             <script type="text/javascript">
               var map = new ol.Map({
                 interactions: ol.interaction.defaults().extend([
                   new ol.interaction.Select({
                     layerFilter: function(layer) {
-                      return layer.get('id') == 'vector';
+                      return layer.get('title') == 'Earthquakes';
                     }
                   })
                 ]),
@@ -45,12 +45,11 @@ Create a Vector Layer and a Select Interaction
                   new ol.layer.Tile({
                     title: "Global Imagery",
                     source: new ol.source.TileWMS({
-                      url: 'http://maps.opengeo.org/geowebcache/service/wms',
-                      params: {'LAYERS': 'bluemarble', 'VERSION': '1.1.1'}
+                      url: 'http://demo.opengeo.org/geoserver/wms',
+                      params: {'LAYERS': 'NE1_HR_LC_SR_W_DR'}
                     })
                   }),
                   new ol.layer.Vector({
-                    id: 'vector',
                     title: 'Earthquakes',
                     source: new ol.source.Vector({
                       parser: new ol.parser.GeoJSON(),
@@ -88,7 +87,6 @@ Create a Vector Layer and a Select Interaction
                   })
                 ],
                 view: new ol.View2D({
-                  projection: 'EPSG:4326',
                   center: [0, 0],
                   zoom: 1
                 })
