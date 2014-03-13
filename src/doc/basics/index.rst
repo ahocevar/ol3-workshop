@@ -1,8 +1,8 @@
 .. _config:
 
-***********
-Basiswissen
-***********
+****************************
+Basiswissen (`map` & `view`)
+****************************
 
 .. toctree::
    :maxdepth: 1
