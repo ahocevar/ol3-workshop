@@ -1,7 +1,7 @@
 .. _openlayers.layers.cached:
 
-Cached Tiles
-============
+Verberechnete Kacheln (`tiles`)
+===============================
 
 By default, the Tile layer makes requests for 256 x 256 (pixel) images to fill your map viewport and beyond. As you pan and zoom around your map, more requests for images go out to fill the areas you haven't yet visited. While your browser will cache some requested images, a lot of processing work is typically required for the server to dynamically render images.
 

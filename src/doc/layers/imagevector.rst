@@ -1,7 +1,8 @@
 .. _openlayers.layers.imagevector:
 
-Image Vector
-============
+Statische Vektoren (`Image Vector`)
+===================================
+
 When data and styling are relatively stable, it might make sense to have OpenLayers generate an image from the vector data for performance reasons.
 
 ol.source.ImageVector

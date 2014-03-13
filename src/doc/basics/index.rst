@@ -1,8 +1,8 @@
 .. _config:
 
-******
-Basics
-******
+***********
+Basiswissen
+***********
 
 .. toctree::
    :maxdepth: 1

@@ -1,6 +1,6 @@
 .. _openlayers.layers.proprietary:
 
-Proprietary Raster Layers
+Proprietäre Raster Themen
 =========================
 
 In previous sections, we displayed layers based on a standards compliant :abbr:`WMS (OGC Web Map Service)` and a custom tile cache. Online mapping (or at least the tiled map client) was largely popularized by the availability of proprietary map tile services. OpenLayers provides layer types that work with these proprietary services through their APIs.

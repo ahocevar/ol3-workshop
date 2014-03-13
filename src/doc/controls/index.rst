@@ -1,8 +1,8 @@
 .. _controls:
 
-*************************
-Controls and interactions
-*************************
+***************************************************
+Benutzerinteraktion (``control`` & ``interaction``)
+***************************************************
 
 .. toctree::
    :maxdepth: 1

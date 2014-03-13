@@ -13,48 +13,84 @@ Hier werden zukünftige Versionen von ol3 sicherlich ansetzen müssen, um noch
 bessere Handreichungen zu geben.
 
 
-Learn by Example
-----------------
+Lernen am Beispiel
+------------------
 
-New users will most likely find diving into the OpenLayer's example code and experimenting with the library's possible functionality the most useful way to begin.
+Die meisten neuen Nutzer von ol3 lernen vermutlich am einfachsten die Verwendung
+der Bibliothek durch das Nachvollziehen von Beispielen. Hier kann man meist
+kleine spezifische Aspekte in Aktion betrachten und mit dem Code `spielen`, um
+ihn zu verstehen. 
 
  * http://ol3js.org/en/master/examples/
 
 
-Browse the Documentation
-------------------------
+Thematische Dokumentation
+-------------------------
 
-For further information on specific topics, browse the growing collection of OpenLayers  documentation.
+Zu speziellen Themen gibt es bereits Prosa-Dokumentation. Die Anzahl an
+behandelten Themen wird sicherlich noch wachsen.
 
  * http://ol3js.org/en/master/doc/quickstart.html
  * http://ol3js.org/en/master/doc/tutorials
  
 
-Find the API Reference
-----------------------
+API-Dokumentation
+-----------------
 
-After understanding the basic components that make-up and control a map, search the API reference documentation for details on method signatures and object properties.
+Nachdem die Basiskomponenten, die eine ``ol.Map`` beeinflussen und ausmachen
+verstanden sind, hilft ein Blick in die aus dem Quelltext generierte
+API-Dokumentation. Hier finden sich Details zu Klassen, Methoden-Signaturen oder
+Objekteigenschaften etc.
 
  * http://ol3js.org/en/master/apidoc/
 
 
-Join the Community
-------------------
+Teil der Community werden
+-------------------------
 
-OpenLayers is supported and maintained by a community of developers and users like you. Whether you have questions to ask or code to contribute, you can get involved by signing up for the mailing list.
+ol3 wird entwickelt und gewartet von einer Gemeinschaft aus Programmierern und
+Benutzern wie Ihnen! Unabhängig davon, ob Sie Fragen stellen oder Code
+beitragen wollen, die einfachste und erste orm direkter Partozipation ist
+sicherlich die Registrierung auf der (englischsprachigen) Mailingliste
 
  * https://groups.google.com/forum/#!forum/ol3-dev
 
-Reporting issues
-----------------
-For reporting issues it is important to understand the several flavours in which the OpenLayers library is distributed:
+Fehler melden
+-------------
 
- * ``ol.js`` - the script which is built using the Google Closure Compiler in advanced mode (not human readable)
- * ``ol-simple.js`` - the script which is built using the Google Closure compiler in simple mode (for more details see: https://developers.google.com/closure/compiler/faq)
- * ``ol-whitespace.js`` - human readable version which can be used for debugging issues
+Wir freuen uns über Feedback auch insbesondere, wenn Sie glauben einen Bug
+gefunden zu haben.
 
-When you encounter an issue, it is important to report the issue using ``ol-whitespace.js``. Also include the full stack trace which you can find using Web Developer tools such as Chrome's Developer Tools. To test this out we are going to make a mistake in map.html by changing ``ol.layer.Tile`` into ``ol.layer.Image``. The error you will see is: ``Uncaught TypeError: Object #<yc> has no method 'tb'``. If you report this to the mailing list, nobody will know what it means. So first, we are going to change the script tag which points to ``ol.js`` to point to ``ol-whitespace.js`` instead. Reload the page. The debugger will now stop on the error, and we can see the full stack trace:
+Um Fehler zu melden ist es wichtig, dass Sie die verschiedenen varianten von ol3
+kennen: 
+
+ * ``ol.js`` - Diese Datei wird durch den Google Closure Compiler (im
+   `Advanced Mode`) erstellt und ist für Menschen nicht lesbar.
+ * ``ol-simple.js`` - Diese Datei wird durch den Google Closure Compiler 
+   (im `Simple Mode`) erstellt und ist bereits ehere les- und verstehbar
+   (vgl. auch https://developers.google.com/closure/compiler/faq)
+ * ``ol-whitespace.js`` - Menschenlesbare Versoion von ol3, die zum Debuggen
+   verwendet werden kann.
+
+Wenn man einen Fehler feststellt, ist es wichtig, dass die Meldung des Fehlers
+auf Basis der ``ol-whitespace.js``-Datei geschieht. Wenn möglich, sollte auch
+der zum Fehler führende `stack trace` Teil der Fehlermeldung sein. Ein solcher
+`stack trace` lässt sich etwa mittels verschiedener Browserwerkzeuge (etwa
+`Chrome developer Tools`) generieren.
+
+Um dies zu testen wollen wir in ``map.html`` einen Fehler produzieren. Ändern
+Sie hierzu den Layertyp von ``ol.layer.Tile`` zu ``ol.layer.Image``. Auf der
+Konsole müssten Sie die folgende Fehlermeldung erhalten: ``Uncaught TypeError: 
+Object #<yc> has no method 'tb'``. Niemand kann Ihnen hierzu bei Fragen weitere
+Informationen oder Hilfe geben.
+
+Wenn statt ``ol.js`` jedoch ``ol-whitespace.js`` eingebunden wird, so hält der
+JavaScript-Debugger des Browser nach einem Neuladen der Seite an der kritischen
+Stelle die Ausführung des Codes an, und ein Debugging ist deutlich vereinfacht.
+
 
 .. figure:: debugger.png
 
-    The debugger showing the stack trace. Using the right mouse button we can copy the call stack to clipboard.
+    Der `stack trace` im Debugger. Mittels der rechten Maustaste kann jener
+    kopiert werden.
+

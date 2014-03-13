@@ -1,6 +1,6 @@
 .. _openlayers.layers.wms:
 
-Web Map Service Layers
+Web Map Service Themen
 ======================
 
 When you add a layer to your map, the layer's source is typically responsible for

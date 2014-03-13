@@ -1,6 +1,6 @@
 .. _openlayers.layers.vector:
 
-Vector Layers
+Vektor Themen
 =============
 Vector Layers are represented by ``ol.layer.Vector`` and handle the client-side display of vector data. Currently OpenLayers 3 only supports vector rendering in the Canvas renderer.
 
