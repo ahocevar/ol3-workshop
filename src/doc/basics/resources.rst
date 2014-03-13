@@ -1,9 +1,17 @@
 .. _config.resources:
 
-OpenLayers Resources
-====================
+ol3 Ressourcen
+==============
 
-The OpenLayers library contains a wealth of functionality. Though the developers have worked hard to provide examples of that functionality and have organized the code in a way that allows other experienced developers to find their way around, many users find it a challenge to get started from scratch.
+ol3 stellt bereits ein große Menge an Funktionalität zur Verfügung. Obwohl die 
+ol3-Entwickler hart gearbeitet haben, um Beispiele für viele der 
+Funktionalitäten zu entwickeln, und der Code so auch vor dem Hintergrund 
+einfacher Nachvollziehbarkeit organisiert und geschrieben wurde, haben
+viele Entwickler zunächst Schwierigkeiten auf ol3 umzusteigen.
+
+Hier werden zukünftige Versionen von ol3 sicherlich ansetzen müssen, um noch
+bessere Handreichungen zu geben.
+
 
 Learn by Example
 ----------------

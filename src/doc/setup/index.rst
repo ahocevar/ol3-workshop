@@ -6,8 +6,8 @@ Vorarbeiten & Umgebung
 OSGeo-Live 7.0
 --------------
 
-Die Schulung während der FOSSGIS findet auf der OSGeo-Libe-Linux-Distribution
-statt, die unter anderem einen Apache Webserver mitbringt.
+Die Schulung während der FOSSGIS findet auf der OSGeo-Live-Linux-Distribution
+statt, die unter anderem einen Apache-Webserver mitbringt.
 
 Wir werden uns ein Verzeichnis erzeugen, in welchem wir später die Workshopdaten
 einfügen und in dem Sie Ihre HTML-Seiten abspeichern können.
@@ -48,6 +48,20 @@ http://localhost/ol3-ws/index.html
 .. figure:: hallo-fossgis.png
    
     Hallo FOSSGIS.
+
+
+Deutsche Tastaturbelegung
+-------------------------
+
+Falls Ihre OSGeo-Live-Linux-Distribution ein amerikanisches Tastaturlayout
+hat, können Sie dieses mittels des Befehls
+
+.. code-block:: sh
+
+    setxkbmap de
+
+in einem Terminal (s.o.) auf ein deutsches Tastaturlayout umstellen.
+
 
 ol3-Bibliothek und Demodaten
 ----------------------------

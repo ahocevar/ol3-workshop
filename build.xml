@@ -69,7 +69,7 @@
         
         <copy todir="${build}" file="${build}/pdf/ol3-workshop.pdf" />
         
-        <delete dir="${src}/doc.tmp"/>        
+        <delete dir="${src}/doc.tmp"/>
         <delete dir="${build}/pdf"/>
         
     </target>

@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'OpenLayers 3 (ol3) Workshop'
-copyright = u'2014, Boundless & terrestris'
+copyright = u'2014, Boundless & terrestris, A. Hocevar, B. van den Eijnden, M. Jansen & D. Koch'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -128,7 +128,7 @@ html_title = project
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.
-#html_use_smartypants = True
+html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
@@ -138,10 +138,10 @@ html_title = project
 #html_additional_pages = {}
 
 # If false, no module index is generated.
-#html_use_modindex = True
+html_use_modindex = True
 
 # If false, no index is generated.
-#html_use_index = True
+html_use_index = False
 
 # If true, the index is split into individual pages for each letter.
 #html_split_index = False
@@ -172,13 +172,13 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'OpenLayersWorkshop.tex', u'OpenLayers Workshop Documentation',
-   u'Boundless \& terrestris', 'manual'),
+  ('index', 'ol3-workshop.tex', u'ol3 Workshop Documentation',
+   u'Boundless \& terrestris \\\\ A. Hocevar, B. van den Eijnden, M. Jansen \& D. Koch', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-#latex_logo = None
+latex_logo = 'pdf-resources/title-image.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.

@@ -4,36 +4,36 @@ FOSSGIS 2014: OpenLayers 3 Workshop
 Herzlich Willkommen beim **OpenLayers 3 Workshop** auf der FOSSGIS 2014 in
 Berlin.
 
-This workshop is designed to give you a comprehensive overview of ol3 as a web
-mapping solution.  The exercises assume that you have set up a local Webserve
-with the workshop data as described in the :doc:`setup/index` page.
+Dieser Workshop soll Ihnen einen umfassenden Überblick über ol3 als
+Web-Mapping-Lösung geben. Die Übungen setzen voraus, dass Sie einen lokalen
+Webserver zur Verfügung haben. Bitte stellen Sie sicher, dass die Schritte der
+:doc:`setup/index` Seite ausgeführt haben.
 
-This workshop is presented as a set of modules. In each module the reader will
-perform a set of tasks designed to achieve a specific goal for that module. Each
-module builds upon lessons learned in previous modules and is designed to
-iteratively build up the reader's knowledge base.
+Dieser Workshop ist aus einer Reihe von Modulen zusammengestellt. In jedem Modul
+wird Sie eine Reihe von Aufgaben entwickeln, um ein bestimmtes Ziel zu
+erreichen. Jedes Modul baut iterativ die Wissensbasis des lesers auf.
 
-The following modules will be covered in this workshop:
+Die folgenden Module werden in diesem Workshop behandelt:
 
-.. rubric:: Fundamentals
+.. rubric:: Grundlagen
 
 :ref:`setup`
   Vorarbeiten für den Workshop
 
 :ref:`config`
-  Learn how to add a map to a webpage with ol3.
+  Lernen Sie, wie man eine ol3-Karte einer Webseite hinzufügt.
 
 :ref:`layers`
-  Learn about raster and vector layers.
- 
-:ref:`controls`
-  Learn about using map controls.
+  Lernen Sie mehr über Raster- und Vektor Themen.
 
-    
-.. rubric:: Advanced Topics
+:ref:`controls`
+  Lernen Sie mehr über Interaktionen und Controls.
+
+
+.. rubric:: Fortgeschrittene Themen
 
 :ref:`styling`
-  Explore vector layers in depth.
+  Lernen sie noch mehr zu Vektorlayern.
 
 
 
@@ -47,4 +47,4 @@ The following modules will be covered in this workshop:
     controls/index
     vector-style/index
 
-    
+

@@ -1,16 +1,25 @@
 .. _config.map:
 
-Creating a Map
-==============
+Eine Karte erstellen
+====================
 
-In OpenLayers, a map is a collection of layers and various interactions and controls for dealing with user interaction. A map is generated with three basic ingredients: :ref:`markup <config.dissect.markup>`, :ref:`style declarations <config.dissect.style>`, and :ref:`initialization code <config.dissect.code>`.
+Eine Karte besteht in ol3 aus einer Sammlung von Themen (*layers*)
+und verschiedenen anderen Elementen, die Benutzerinteraktionen ermöglichen
+und/oder verarbeiten (*interactions* und *controls*).
+
+Um eine Karte zu erzeugen benötigen wir drei Bestandteile:
+
+* :ref:`HTML-Markup (Auszeichnung) <config.dissect.markup>`,
+* :ref:`CSS-Deklarationen (Stil) <config.dissect.style>` und 
+* :ref:`JavaScript-Initialisierungs-Code (Verhalten) <config.dissect.code>`.
 
 .. _config.map.example:
 
-Working Example
----------------
+Ein lauffähiges Beispiel
+------------------------
 
-Let's take a look at a fully working example of an OpenLayers 3 map.
+Schauen wir uns zunächst ein vollständig lauffähiges Beispiel einer
+ol3-basierten Karte an: 
 
 .. code-block:: html
 
@@ -56,13 +65,14 @@ Let's take a look at a fully working example of an OpenLayers 3 map.
 
 .. rubric:: Tasks
 
-#.  Copy the text above into a new file called :file:`map.html`, and save it in
-    the root ``ol3-ws/ol3-training-master``.
+#.  Kopieren Sie obigen Text in eine neue Datei :file:`map.html`, die Sie im
+    Verzeichnis ``ol3-ws/ol3-training-master`` abspeichern.
 
-#.  Open the working map in your web browser: @workshop_url@/map.html
+#.  Öffnen Sie die HTML-Seite inj einem Browser: @workshop_url@/map.html
 
 .. figure:: map1.png
    
-    A working map displaying imagery of the world.
+    Die lauffähige Karte im Browser.
 
-Having successfully created our first map, we'll continue by looking more closely at :ref:`the parts <config.dissect>`.
+Nachdem wir nun eine erste funktionsfähige Karte erzeugt haben, schauen wir uns
+nun die :ref:`Einzelbestandteile <config.dissect>` an. 
