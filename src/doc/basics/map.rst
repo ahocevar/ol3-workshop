@@ -63,7 +63,7 @@ ol3-basierten Karte an:
       </body>
     </html>
 
-.. rubric:: Tasks
+.. rubric:: Übungen
 
 #.  Kopieren Sie obigen Text in eine neue Datei :file:`map.html`, die Sie im
     Verzeichnis ``ol3-ws/ol3-training-master`` abspeichern.

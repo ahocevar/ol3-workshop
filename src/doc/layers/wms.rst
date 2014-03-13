@@ -3,24 +3,27 @@
 Web Map Service Themen
 ======================
 
-When you add a layer to your map, the layer's source is typically responsible for
-fetching the data to be displayed. The data requested can be either raster or
-vector data. You can think of raster data as information rendered as an image on
-the server side. Vector data is delivered as structured information from the
-server and may be rendered for display on the client (your browser).
+Wenn Sie ein Thema (``layer``) Ihrer Karte hinzufügen, ist die Themenquelle
+(``source``) in der Regel für das Abrufen der angezeigt Daten verantwortlich.
+Die angeforderten Daten können entweder Raster-oder Vektordaten sein. 
+Rasterdaten stellen wir uns hierbei als serverseitig erzeugtes Bild vor.
+Vektordaten werden als strukturierte Informationen vom Server ausgeliefert und
+sie können für die Anzeige erst auf dem Client (ihrem Browser) gerendert werden.
 
-There are many different types of services that provide raster map data. This
-section deals with providers that conform with the :abbr:`OGC
-(Open Geospatial Consortium, Inc.)` `Web Map Service (WMS)
-<http://www.opengeospatial.org/standards/wms>`_ specification.
+Es gibt mannigfaltige Services, die Rasterdaten bereitstellen. In diesem
+Abschnitt werden wir uns mit denjenigen befassen, die Rasterdaten konform zur
+:abbr:`OGC (Open Geospatial Consortium, Inc.)` `Web Map Service (WMS)
+<http://www.opengeospatial.org/standards/wms>`_\ -Spezification liefern.
 
-Creating a Layer
-----------------
 
-We'll start with a fully working map example and modify the layers to get an
-understanding of how they work.
+Einen Layer erzeugen
+--------------------
 
-Let's take a look at the following code:
+Wir werden nun zunächst wieder mit einem vollständigen Beispiel beginnen. Nach
+und nach werden wir die ``layer`` der Karte modifizieren, um ein Verständnis für
+Funktionalität zu bekommen. 
+
+Schauen wir uns folgenden Code an:
 
 .. _openlayers.layers.wms.example:
 
@@ -67,28 +70,48 @@ Let's take a look at the following code:
     </html>
 
 
-.. rubric:: Tasks
+.. rubric:: Übungen
 
-#.  If you haven't already done so, save the text above as ``map.html`` in the
-    root of your workshop directory.
+#.  Falls noch nicht geschehen, speichern Sie obigen Text als ``map.html`` im
+    Workshopverzeichnis.
 
-#.  Open the page in your browser to confirm things work:
-    @workshop_url@/map.html
+#.  Testen Sie, ob die Karte wie erwartet funktioniert: @workshop_url@/map.html
 
-The ol.layer.Tile Constructor
-------------------------------------
 
-The ``ol.layer.Tile`` constructor gets an object literal of type ``olx.layer.TileOptions`` see: http://ol3js.org/en/master/apidoc/olx.layer.html#TileOptions
-In this case we are providing the source key of the options with an ``ol.source.TileWMS``.
-A human-readable title for the layer can be provided with the title key, but basically any arbitrary name for the key can be used here.
-In OpenLayers 3 there is a separation between layers and sources, whereas in OpenLayers 2 this was all part of the layer.
+Der ``ol.layer.Tile``-Konstruktor
+---------------------------------
 
-``ol.layer.Tile`` represents a regular grid of images, ``ol.layer.Image`` represents a single image. Depending on the layer type, you would use a different source (``ol.source.TileWMS`` versus ``ol.source.ImageWMS``) as well.
+Der ``ol.layer.Tile``-Konstruktor wird mit einem Konfigurationsobjekt vom Typ 
+``olx.layer.TileOptions`` aufgerufen (vgl. 
+http://ol3js.org/en/master/apidoc/olx.layer.html#TileOptions). Im vorliegenden
+Fall ist der Wert des ``source``-Schlüsselwortes eine Instanz der Klasse  
+``ol.source.TileWMS``. Ein lesbarer Titel kann für den Layer mit der
+``title``-Option frestgelegt werden.
 
-The ol.source.TileWMS Constructor
-------------------------------------
-The ``ol.source.TileWMS`` constructor has a single argument which is defined by: http://ol3js.org/en/master/apidoc/olx.source.html#TileWMSOptions.
-The url is the online resource of the WMS service, and params is an object literal with the parameter names and their values. Since the default WMS version is 1.3.0 now in OpenLayers, you might need to provide a lower version in the params if your WMS does not support WMS 1.3.0.
+Im Gegensatz zu OpenLayers 2.x (wo die Aufgaben von `source` und `layer`
+gemeinsam von ``OpenLayers.Layer``-Instanzen übernommen) wurden, unterscheidet
+ol3 immer zwischen einem Thema (``layer``) und seiner datenquelle (`source`).
+
+Die Klasse ``ol.layer.Tile`` repräsentiert ein reguläre Netz oder Grid von
+Bildern. Ein einzelnes Bild als Thema ist durch ``ol.layer.Image`` abgebildet.
+
+Je nach Layertyp (``...Tile`` oder ``...Image``) sollte auch eine andere
+``source`` verwendet werden: ``ol.source.TileWMS`` beziehungsweise
+``ol.source.ImageWMS``.
+
+Der ``ol.source.TileWMS``-Konstruktor
+-------------------------------------
+
+Der ``ol.source.TileWMS``-Konstruktor erwartet ein einzelnes Objekt als
+Argument. Die Struktur dieses Objektes ist unter
+http://ol3js.org/en/master/apidoc/olx.source.html#TileWMSOptions aufgeführt.
+
+Der Schlüssel ``url`` enthält den Link auf die Online Resource des Dienstes und
+``params`` ist ein Objektliteral mit Parameternamen als Schlüssel und
+Parameterwerten als Wert. Die deafult ``VERSION``eines WMS ist in ol3 ``1.3.0``,
+falls Ihre Dienste diese Version nicht unterstützen, kann ein kleinerer Wert 
+(etwa ``1.1.1``) über die ``params`` eingestellt werden.
+
 
 .. code-block:: javascript
 
@@ -103,12 +126,13 @@ The url is the online resource of the WMS service, and params is an object liter
     ]
 
 
-.. rubric:: Tasks
+.. rubric:: Übungen
 
-#.  This same WMS offers a layer named ``"openstreetmap"``. Change the value of 
-    the ``LAYERS`` parameter from ``"bluemarble"`` to ``"openstreetmap"``. 
-
-    Your revised ol.layer.Tile Constructor should look like:
+#.  Der oben verwende WMS stellt auch einen Layer namens ``"openstreetmap"`` zur
+    Verfügung. Ändern Sie den ``ol.layer.Tile``-Konstruktor so, dass jener Layer
+    angezeigt wird.
+    
+    Anschließend sollte Ihr Code etwa wie folgt aussehen 
     
     .. code-block:: javascript
 
@@ -116,17 +140,29 @@ The url is the online resource of the WMS service, and params is an object liter
           title: "Global Imagery",
           source: new ol.source.TileWMS({
             url: 'http://maps.opengeo.org/geowebcache/service/wms',
-            params: {LAYERS: 'openstreetmap', VERSION: '1.1.1'}
+            params: {
+              // hier ist die wesentliche Änderung
+              LAYERS: 'openstreetmap',
+              VERSION: '1.1.1'
+            }
           })
         })
 
-#.  Change your layer and source to have a single image instead of tiles. Look at the following API doc pages for hints: http://ol3js.org/en/master/apidoc/ol.layer.Image.html
-    and http://ol3js.org/en/master/apidoc/ol.source.ImageWMS.html. During this process you will need to change the url (into http://suite.opengeo.org/geoserver/wms) and the layer name
-    (into ``opengeo:countries``) as well. Use the Network tab of your browser's developer tools to make sure a single image is requested and not 256x256 pixel tiles.
+#.  Ändern Sie den Code dahingehend ab, dass statt vieler einzelner Kacheln nur
+    noch ein einzelnes Bild beim WMS angefragt wird. Die folgende Seiten aus der
+    API-Dokumentation können hilfreich sein: 
+    http://ol3js.org/en/master/apidoc/ol.layer.Image.html und
+    http://ol3js.org/en/master/apidoc/ol.source.ImageWMS.html.
+    Sie sollten die Adresse ``http://suite.opengeo.org/geoserver/wms`` und den
+    Layernamen ``opengeo:countries`` verwenden.
+
+#.  Überprüfen Sie mittels der Developer Tools des Browsers ob tatsächlich nur
+    noch ein Bild angefordert wird statt der 256x256 Pixel großen Kacheln.
 
 .. figure:: wms1.png
 
-    A map displaying the ``"openstreetmap"`` layer as ``"image/png"``.
+    Eine Karte, die den Layer ``"openstreetmap"`` als ``"image/png"`` darstellt.
 
-Having worked with dynamically rendered data from a Web Map Service, let's move
-on to learn about :ref:`cached tile services <openlayers.layers.cached>`.
+Nachdem wir erfolgreich mit dynamisch berechneten Kacheln gearbeitet haben,
+wollen wir uns nun :ref:`vorberechneten Kacheln <openlayers.layers.cached>`
+zuwenden.

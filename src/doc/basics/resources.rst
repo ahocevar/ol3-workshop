@@ -1,7 +1,7 @@
 .. _config.resources:
 
-ol3 Ressourcen
-==============
+Weitere ol3 Ressourcen
+======================
 
 ol3 stellt bereits ein große Menge an Funktionalität zur Verfügung. Obwohl die 
 ol3-Entwickler hart gearbeitet haben, um Beispiele für viele der 
