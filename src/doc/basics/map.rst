@@ -56,9 +56,8 @@ Let's take a look at a fully working example of an OpenLayers 3 map.
 
 .. rubric:: Tasks
 
-#.  Download https://github.com/bartvde/ol3-training/archive/master.zip and save the folder in the root of your web server.
-
-#.  Copy the text above into a new file called :file:`map.html`, and save it in the root of the downloaded folder.
+#.  Copy the text above into a new file called :file:`map.html`, and save it in
+    the root ``ol3-ws/ol3-training-master``.
 
 #.  Open the working map in your web browser: @workshop_url@/map.html
 

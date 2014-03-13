@@ -2,13 +2,14 @@
 <project name="ol_workshop" default="dist" basedir=".">
 
     <description>
-        FOSS4G 2011 OpenLayers Workshop Builder
+        FOSSGIS 2014 OpenLayers Workshop Builder
     </description>
 
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dest" location="${build}/${ant.project.name}"/>
-    <property name="host" value="http://localhost:8080"/>
+    <property name="host" value="http://localhost"/>
+	<property name="ws-dir" value="ol3-ws/ol3-training-master"/>
     
     <target name="init">
         <mkdir dir="${dest}"/>
@@ -20,7 +21,7 @@
         <copy todir="${src}/doc.tmp">
             <fileset dir="${src}/doc" excludes="**/*.png"/>
             <filterset>
-                <filter token="workshop_url" value="${host}/${ant.project.name}"/>
+                <filter token="workshop_url" value="${host}/${ws-dir}"/>
                 <filter token="geoserver_url" value="${host}/geoserver"/>
             </filterset>
         </copy>
@@ -46,7 +47,7 @@
         <copy todir="${src}/doc.tmp">
             <fileset dir="${src}/doc" excludes="**/*.png"/>
             <filterset>
-                <filter token="workshop_url" value="${host}/${ant.project.name}"/>
+                <filter token="workshop_url" value="${host}/${ws-dir}"/>
                 <filter token="geoserver_url" value="${host}/geoserver"/>
             </filterset>
         </copy>
@@ -66,7 +67,7 @@
             <arg line="all-pdf"/>
         </exec>
         
-        <copy todir="${build}" file="${build}/pdf/OpenLayersWorkshop.pdf" />
+        <copy todir="${build}" file="${build}/pdf/ol3-workshop.pdf" />
         
         <delete dir="${src}/doc.tmp"/>        
         <delete dir="${build}/pdf"/>
