@@ -5,6 +5,7 @@ Working with Vector Layers
 
 The base ``ol.layer.Vector`` constructor provides a fairly flexible layer type. By default, when you create a new vector layer, no assumptions are made about where the features for the layer will come from, since this is the domain of ``ol.source.Vector``. Customizing the rendering style is addressed in an :ref:`upcoming section <openlayers.vector.style-intro>`. This section introduces the basics of vector data :ref:`formats <openlayers.vector.basics.format>`.
 
+
 .. _openlayers.vector.basics.format:
 
 ol.format
@@ -14,10 +15,11 @@ The ``ol.format`` classes in OpenLayers 3 are responsible for parsing data from 
 
 Consider the two blocks of data below. Both represent the same ``ol.Feature`` object (a point in Barcelona, Spain). The first is serialized as `GeoJSON <http://geojson.org>`_ (using the ``ol.format.GeoJSON`` parser). The second is serialized as :abbr:`KML (OGC Keyhole Markup Language)` (using the ``ol.format.KML`` parser).
 
+
 GeoJSON Example
 ```````````````
 
-.. code-block:: javascript
+.. code-block:: json
 
     {
         "type": "Feature",
@@ -28,6 +30,7 @@ GeoJSON Example
             "coordinates": [-104.98, 39.76] 
         }
     }
+
 
 KML Example
 ```````````
