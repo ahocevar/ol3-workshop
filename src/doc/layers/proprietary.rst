@@ -3,22 +3,32 @@
 Proprietäre Raster Themen
 =========================
 
-In previous sections, we displayed layers based on a standards compliant :abbr:`WMS (OGC Web Map Service)` and a custom tile cache. Online mapping (or at least the tiled map client) was largely popularized by the availability of proprietary map tile services. OpenLayers provides layer types that work with these proprietary services through their APIs.
+Die vorherigen Abschnitte verwendeten Layer, die auf dem standardisiertem
+:abbr:`WMS (OGC Web Map Service)` oder eigenen Kachelsets basierten. Online
+Kartenwendungen wurden aber nicht zuletzt durch die Verfügbarkeit von
+proprietären Kacheldiensten so populär. ol3 stellt Layertypen zur Verfügung, die
+mit jenen Diensten über deren API kommunizieren können.
 
-In this section, we'll build on the example developed in the :ref:`previous section <openlayers.layers.cached.example>` by adding a layer using tiles from Bing.
+In diesem Abschnitt werden wir das Beispiel aus dem
+:ref:`vorherigen Abschnitt <openlayers.layers.cached>` erweitern, in dem wir
+einen Layer hinzufügen, der die Bing-Kacheln als Quelle nutzt.
 
-To see how OpenLayers 3 and Google Maps can be integrated check out: http://ol3js.org/en/master/examples/google-map.html.
+Um zu verstehen, wie ol3 zusammen mit Google Maps verwendet werden kann, sei auf
+das entsprechende Online Beispiel unter 
+http://ol3js.org/en/master/examples/google-map.html verwiesen.
 
 .. _openlayers.layer.proprietary.bing:
 
 Bing!
 -----
 
-Let's add a Bing layer.
+Wir fügen nun also einen Bing-Layer hinzu:
 
-.. rubric:: Tasks
+.. rubric:: Übungen
 
-#.  In your ``map.html`` file, find where the :abbr:`OSM (OpenStreetMap)` source is configured and change it into an ``ol.source.BingMaps``
+#.  Suchen Sie in der Datei ``map.html`` die Stelle, an der die 
+    :abbr:`OSM (OpenStreetMap)` ``source`` konfiguriert wird und
+    ändern Sie jene zu einer ``ol.source.BingMaps``:
 
     .. code-block:: javascript
 
@@ -27,18 +37,25 @@ Let's add a Bing layer.
           key: 'Ak-dzM4wZjSqTlzveKz5u0d4IQ4bRzVI309GxmkgSVr1ewS6iPSrOvOKhA-CJlm3'
         })
 
-    .. note:: The Bing tiles API requires that you register for an API key to use with your mapping application.  The example here uses an API key that you should not use in production.  To use the Bing layer in production, register for an API key at https://www.bingmapsportal.com/.
+    .. note:: 
+        
+        Die Bing-API muss mit einem API-Schlüssel ``key`` angesprochen werden.
+        Das vorliegende Beispiel verwendet einen solchen Schlüssel, der nicht 
+        für Ihre eigenen Anwendungen verwendet werden sollte. Um selbst einen
+        Schlüssel kann die Registrierung unter https://www.bingmapsportal.com/
+        verwendet werden.
     
-#.  Save your changes and reload ``map.html`` in your browser: @workshop_url@/map.html
+#.  Speichern Sie ihre Änderungen in der Datei ``map.html`` und testen Sie das
+    Ergebnis im Browser: @workshop_url@/map.html
     
 .. figure:: proprietary1.png
    
-    A map with tiles from a Bing Maps source.
+    Eine ol3-Karte, die die Bing-Kacheln verwendet.
 
-Complete Working Example
-````````````````````````
+Vollständiges Beispiel
+``````````````````````
 
-Your revised ``map.html`` file should look something like this:
+Die von Ihnen angepasste HTML-Datei ``map.html`` sollte etwa wie folgt aussehen:
 
 .. code-block:: html
 
@@ -51,7 +68,9 @@ Your revised ``map.html`` file should look something like this:
           height: 256px;
           width: 512px;
         }
-        .ol-attribution ul, .ol-attribution a, .ol-attribution a:not([ie8andbelow]) {
+        .ol-attribution ul,
+        .ol-attribution a,
+        .ol-attribution a:not([ie8andbelow]) {
           color: black;
         }
       </style>
@@ -82,3 +101,5 @@ Your revised ``map.html`` file should look something like this:
     </body>
   </html>
 
+Als letzten Layertypus wollen wir uns 
+:ref:`Vektorthemen <openlayers.layers.vector>` anschauen.

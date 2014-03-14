@@ -1,8 +1,8 @@
 .. _styling:
 
-**************
-Vector styling
-**************
+************************
+Styling von Vektorlayern
+************************
 
 .. toctree::
    :maxdepth: 1

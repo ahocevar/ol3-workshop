@@ -50,19 +50,6 @@ http://localhost/ol3-ws/index.html
     Hallo FOSSGIS.
 
 
-Deutsche Tastaturbelegung
--------------------------
-
-Falls Ihre OSGeo-Live-Linux-Distribution ein amerikanisches Tastaturlayout
-hat, können Sie dieses mittels des Befehls
-
-.. code-block:: sh
-
-    setxkbmap de
-
-in einem Terminal (s.o.) auf ein deutsches Tastaturlayout umstellen.
-
-
 ol3-Bibliothek und Demodaten
 ----------------------------
 
@@ -85,4 +72,21 @@ Es sollte sich nunmehr ein neues Verzeichnis ``ol3-training-master/`` im
 aktuellen Verzeichnis befinden. Alle Beispiele, die Sie im Rahmen dieses
 Workshops erstellen, sollten sich innerhalb dieses Ordners befinden.
 
-Nun können wir mit :doc:`/basics/index` weitermachen.
+
+Deutsche Tastaturbelegung
+-------------------------
+
+Falls Ihre OSGeo-Live-Linux-Distribution ein amerikanisches Tastaturlayout
+hat, können Sie dieses mittels des Befehls
+
+    .. code-block:: sh
+
+        setxkbmap de
+
+in einem Terminal (s.o.) auf ein deutsches Tastaturlayout umstellen.
+
+
+Alles erledigt?
+---------------
+
+Gut, dann können wir nun mit :doc:`/basics/index` weitermachen.

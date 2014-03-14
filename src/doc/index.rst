@@ -6,12 +6,12 @@ Berlin.
 
 Dieser Workshop soll Ihnen einen umfassenden Überblick über ol3 als
 Web-Mapping-Lösung geben. Die Übungen setzen voraus, dass Sie einen lokalen
-Webserver zur Verfügung haben. Bitte stellen Sie sicher, dass die Schritte der
-:doc:`setup/index` Seite ausgeführt haben.
+Webserver zur Verfügung haben. Bitte stellen Sie sicher, dass Sie die 
+Schritte der :doc:`setup/index` Seite ausgeführt haben.
 
 Dieser Workshop ist aus einer Reihe von Modulen zusammengestellt. In jedem Modul
-wird Sie eine Reihe von Aufgaben entwickeln, um ein bestimmtes Ziel zu
-erreichen. Jedes Modul baut iterativ die Wissensbasis des lesers auf.
+werden Sie eine Reihe von Aufgaben lösen, um ein bestimmtes Ziel zu
+erreichen. Jedes Modul baut iterativ Ihre Wissensbasis.
 
 Die folgenden Module werden in diesem Workshop behandelt:
 
