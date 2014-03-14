@@ -3,12 +3,16 @@
 Statische Vektoren (`Image Vector`)
 ===================================
 
-When data and styling are relatively stable, it might make sense to have OpenLayers generate an image from the vector data for performance reasons.
+Wenn sowohl die daten als auch deren Ausgestalten nicht dynamisch sondern im
+Grunde `fix` sind, kann es aus Perfomancegründen Sinn machen, das ol3 ein Bild
+der Vektordaten berechnet. 
 
-ol.source.ImageVector
----------------------
 
-Let's go back to the vector layer example to get earthquake data on top of a world map.
+Die Klasse ``ol.source.ImageVector``
+------------------------------------
+
+Unsere Beispielkarte soll nun zunächst auf einen Stand zurückversetzt werden, in
+welchem die Erdbebendaten auf der Weltkarte angezeigt werden.
 
 .. code-block:: html
 
@@ -65,10 +69,14 @@ Let's go back to the vector layer example to get earthquake data on top of a wor
 
 .. rubric:: Tasks
 
-#.  Open ``map.html`` in your text editor and copy in the contents of the vector example from above. Save your changes and confirm that things look good in your browser: @workshop_url@/map.html
+#.  Öffnen Sie die Datei ``map.html`` in einem Texteditor und fügen Sie obigen
+    Code ein.
+
+#.  Speichern Sie ihre Änderungen in der Datei ``map.html`` und testen Sie das
+    Ergebnis im Browser: @workshop_url@/map.html
 
 
-#.  Change the vector layer into:
+#.  Ändern Sie dann den Vektorlayer wie folgt:
 
     .. code-block:: javascript
 
@@ -87,16 +95,20 @@ Let's go back to the vector layer example to get earthquake data on top of a wor
           })
         })
 
-#.    Reload @workshop_url@/map.html in the browser
+#.    Aktualisieren Sie die Seite @workshop_url@/map.html im Browser.
 
 .. note::
 
-    You will see the same vector data but depicted as an image. This will still enable things like feature detection, but the vector data will be less sharp. So this is essentially a trade-off between performance and quality.
-    
-A Closer Look
-`````````````
+    Wenn alles korrekt ist, sehen Sie die gleichen Daten wie zuvor, selbst 
+    `feature detection` sollte noch funktionieren. Allerdings sollten die Daten
+    weniger scharf gerendert werden. Effektiv haben wir Perfomance zu Gunsten
+    der Qualität des renderings gewonnen.
 
-Let's examine the layer creation to get an idea of what is going on.
+
+Details des Beispiels
+`````````````````````
+
+Wir werfen einen erneuten Blick auf die Erzegung des ``ol.layer.Image``.
 
 .. code-block:: javascript
 
@@ -115,11 +127,26 @@ Let's examine the layer creation to get an idea of what is going on.
       })
     })
 
-We are using an ``ol.layer.Image`` instead of an ``ol.layer.Vector``. However, we can still use vector data here through ``ol.source.ImageVector`` that connects to our original ``ol.source.GeoJSON`` vector source. The style is provided as config of ``ol.source.ImageVector`` and not on the layer.
 
-.. rubric:: Bonus Tasks
+Wir verwenden ``ol.layer.Image`` statt ``ol.layer.Vector``, trotzdem können wir
+nach wie vor, mittels ``ol.source.ImageVector``, auf die zuvor verwendete
+``source`` vom Typ ``ol.source.GeoJSON`` zurückgreifen.
 
-#.  Verify that feature detection still works by registering a singleclick listener on your map that calls ``forEachFeatureAtPixel`` on the map, and displays earthquake information below the map viewport.
+Anders als zuvor wird die Ausgestaltung als `style` nicht dem Layer sondern der
+``ol.source.ImageVector`` mitgegeben.
+
+
+.. rubric:: Zusatzaufgabe
+
+#.  Funktioniert unser ``singleclick``-Handler aus dem vorherigen Abschnitt
+    noch?
+    
+    Zur Erinnerung:
+    
+    Registrieren Sie eine Funktion, die bei jedem ``singleclick``-Event, welcher
+    auf der ``ol.Map`` gefeuert wird, die Funktion ``forEachFeatureAtPixel`` der
+    ``map`` aufruft und gegebenenfalls weitere Erdbebeninformationen ausgibt.
+
 
 .. only:: instructor
 

@@ -1,9 +1,9 @@
 .. _openlayers.layers.vector:
 
-Vektor Layer
-============
+Vektorlayer
+===========
 
-Vektor Layer werden durch die Klasse ``ol.layer.Vector`` bereitsgestellt. Dieser
+Vektorlayer werden durch die Klasse ``ol.layer.Vector`` bereitsgestellt. Dieser
 Layertypus kümmert sich um die Darstellung von Vektordaten auf der Client-Seite.
 
 Derzeit unterstützt in ol3 ausschließlich der `Canvas`-Renderer die Verwendung
@@ -67,7 +67,7 @@ Ansicht der gesamten Welt. Hierauf wollen wir anschließend Vektoren darstellen.
     Ergebnis im Browser: @workshop_url@/map.html
 
 #.  Im Initialisierungscode der Karte fügen Sie bitte nach dem ``Tile``-Layer
-    einen weiteren layer hinzu. Kopieren Sie am einfachsten hierzu die folgenden
+    einen weiteren Layer hinzu. Kopieren Sie am einfachsten hierzu die folgenden
     Zeilen, die einen Vektorlayer definieren, der seine Daten aus einer lokalen
     GeoJSON-datei bezieht:
 
@@ -92,24 +92,24 @@ Ansicht der gesamten Welt. Hierauf wollen wir anschließend Vektoren darstellen.
 
 .. note::
 
-    Since the GeoJSON data is in ``EPSG:4326`` and the map's view is also in 
-    ``EPSG:4326``, no reprojection is needed. In the case that the source 
-    projection differs from the view's projection, a ``projection`` property 
-    should be specified on the source which indicates the projection of the 
-    feature cache, this would mean you would specify the view's projection 
-    here normally.
-    
-    
-A Closer Look
-`````````````
+    Da die Daten in der GeoJSON-Datei in ``EPSG:4326`` vorliegen, und der
+    ``view`` der Karte auch diese Projektion verwendet, müssen wir die Daten
+    nicht reprojizieren. Falls die Datenprojektion nicht übereinstimmt, kann
+    man bei der Konstruktion der ``source`` einen ``projection``-Key im
+    Konfigurationsobjekt übergeben.
 
-Let's examine that vector layer creation to get an idea of what is going on.
+
+Details des Beispiels
+`````````````````````
+
+Wir schauen uns nun die Erzeugung des Vektorlayer im Detail an um zu verstehen,
+was im Beispiel passiert.
 
 .. code-block:: javascript
 
     new ol.layer.Vector({
-       title: 'Earthquakes',
-       source: new ol.source.GeoJSON({
+      title: 'Earthquakes',
+      source: new ol.source.GeoJSON({
         url: 'data/layers/7day-M2.5.json'
       }),
       style: new ol.style.Style({
@@ -120,27 +120,29 @@ Let's examine that vector layer creation to get an idea of what is going on.
       })
     })
 
-The layer is given the title ``"Earthquakes"`` and some custom options. In the 
-options object, we've included a ``source`` of type ``ol.source.GeoJSON`` which 
-points to a url.
+Der Layer wird mit dem Titel (``title``) `Earthquakes` und einigen weiteren
+Optionen initialisisert. Insbesondere von Relevanz ist der ``source``-Schlüssel,
+welchem wir eine Instanz von ``ol.source.GeoJSON`` zuweisen. Diese ``source``
+verweist auf die URL zur GeoJSON-Datei.
 
 .. note::
 
-    In the case where you want to style the features based on an attribute, you 
-    would use a style function instead of an ``ol.style.Style`` for the 
-    ``style`` config option of ``ol.layer.Vector``.
+    Wollten wir die Features des Layers attributiv ausgestalten, so könnten wir
+    statt einer Instanz von ``ol.style.Style`` auch eine Stylefunktion
+    übergeben. 
+
 
 .. rubric:: Zusatzaufgaben
 
-#.  The white circles on the map represent ``ol.Feature`` objects on 
-    your ``ol.layer.Vector`` layer. Each of these features has attribute 
-    data with ``title`` and ``summary`` properties. Register a 
-    singleclick listener on your map that calls ``forEachFeatureAtPixel`` 
-    on the map, and displays earthquake information below the map viewport.
+#.  Jeder weiße Kreis repräsentiert ein ``ol.Feature`` Objekt des
+    ``ol.layer.Vector``, und jedes Feature hat die Attribute ``summary`` &
+    ``title``. Registrieren Sie eine Funktion, die bei jedem
+    ``singleclick``-Event, welcher auf der ``ol.Map`` gefeuert wird, die
+    Funktion ``forEachFeatureAtPixel`` der ``map`` aufruft und gegebenenfalls
+    weitere Erdbebeninformationen ausgibt.
 
-#.  The data for the vector layer comes from an earthquake feed published by
-    the USGS (http://earthquake.usgs.gov/earthquakes/catalogs/).  See if you 
-    can find additional data with spatial information in a format supported by 
-    OpenLayers 3.  If you save another document representing spatial data in 
-    your ``data`` directory, you should be able to view it in a vector layer on
-    your map.
+#.  Die hier verwendeten Daten entstammen der Seite 
+    http://earthquake.usgs.gov/earthquakes/catalogs/ des USGS. Recherchieren Sie
+    dort, ob Sie weitere geodaten in einem von ol3 unterstützten Format finden
+    und versuchen Sie, jene in ``map.html`` zu integrieren.
+
