@@ -3,15 +3,15 @@
 Features modifizieren
 =====================
 
-Um features zu verändern, werden wir eine ``ol.interaction.Select`` mit einer
-``ol.interaction.Modify`` kombinieren. Diese Interaktion teilen sich einen
+Um Features zu verändern, werden wir eine ``ol.interaction.Select`` mit einer
+``ol.interaction.Modify`` kombinieren. Diese Interaktionen teilen sich einen
 gemeinsamen ``ol.FeatureOverlay``.
 
 
 Vektorlayer und ``Modify``-Interaktion erzeugen
 ```````````````````````````````````````````````
 
-.. rubric:: Tasks
+.. rubric:: Übungen
 
 #.  Wir beginnen wieder mit dem unten aufgeführten Beispiel. Öffnen Sie die
     Datei ``map.html`` im Texteditor und stellen Sie sicher, dass der Inhalt
@@ -97,9 +97,9 @@ Vektorlayer und ``Modify``-Interaktion erzeugen
 #.  Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
     neu: @workshop_url@/map.html
     
-    Klicken Sie mit der linken Maustaste auf die Karte um ein Erdbeben
-    auszuwählen (``interaction.Select``) ziehen Sie das Feature anschließend mit
-    der Maustaste an eine neue Lokation (``interaction.Modify``)
+    Klicken Sie mit der linken Maustaste auf die Karte, um ein Erdbeben
+    auszuwählen (``interaction.Select``). Ziehen Sie das Feature anschließend
+    mit der Maustaste an eine neue Lokation (``interaction.Modify``).
 
 
 Einige Details
@@ -128,10 +128,12 @@ Schauen wir uns genauer an, wie wir Features editieren können.
     var select = new ol.interaction.Select({ featureOverlay: overlay });
 
 
-Wir erzeugen zwei Interaktionen, eine Instanz von ``ol.interaction.Select`` um
+Wir erzeugen zwei Interaktionen: eine Instanz von ``ol.interaction.Select`` um
 Features vor dem editieren auszuwählen, und eine Instanz von 
 ``ol.interaction.Modify`` um die Geometrien tatsächlich zu verändern. Beiden 
 Interaktionen weisen wir die gleiche Instanz der Klasse ``ol.FeatureOverlay``
 (mit spezifischen Stilangaben, die während Selektion und Modifikation wirksam 
-sind) zu. Klickt man erneut, so wird das zunächst gewählte / editierte Feature
+sind) zu.
+
+Klickt man erneut, so wird das zunächst gewählte / editierte Feature
 wieder im Stil des Layers gezeichnet.

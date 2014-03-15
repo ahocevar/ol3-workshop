@@ -11,14 +11,15 @@ Schritte der :doc:`setup/index` Seite ausgeführt haben.
 
 Dieser Workshop ist aus einer Reihe von Modulen zusammengestellt. In jedem Modul
 werden Sie eine Reihe von Aufgaben lösen, um ein bestimmtes Ziel zu
-erreichen. Jedes Modul baut iterativ Ihre Wissensbasis.
+erreichen. Jedes Modul baut iterativ Ihre Wissensbasis weiter auf.
 
 Die folgenden Module werden in diesem Workshop behandelt:
 
 .. rubric:: Grundlagen
 
 :ref:`setup`
-  Vorarbeiten für den Workshop
+  Vorarbeiten für den Workshop. Behandelt auch die OSGeo Live-DVD
+  Besonderheiten.
 
 :ref:`config`
   Lernen Sie, wie man eine ol3-Karte einer Webseite hinzufügt.

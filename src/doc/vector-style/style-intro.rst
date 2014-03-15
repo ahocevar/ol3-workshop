@@ -3,8 +3,8 @@
 Styling Grundlagen
 ==================
 
-Wenn man HTML-Elemente ausgestaltet, kann man zum Beispiel ein wenig CSS wie
-das folgende verwenden:
+Wenn man HTML-Elemente ausgestaltet, kann man zum Beispiel ein CSS wie das
+folgende verwenden:
 
 .. code-block:: css
 
@@ -14,9 +14,9 @@ das folgende verwenden:
         border-color: olive;
     }
 
-``.someClass`` ist ein `Selektor` (In diesem Fall einer der jedwedes Element mit
-der Klasse ``"someClass"`` selktieren würde) und der mit geschwungen Klammern
-umschlossene Block stellt eine Gruppe von Schlüssel-Wert-Paaren dar, die 
+``.someClass`` ist ein Selektor (in diesem Fall einer, der jedwedes Element mit
+der Klasse ``"someClass"`` selektieren würde) und der mit geschwungen Klammern
+umschlossene Block stellt eine Gruppe von Schlüssel-Wert-Paaren dar: die 
 eigentlichen Stildeklarationen.
 
 
@@ -26,7 +26,7 @@ eigentlichen Stildeklarationen.
 Ein Vektorlayer akzeptiert als Wert für die ``style``-Konfigurationsoption eine
 Funktion, in welcher ein unterschiedlicher Stil anhand eines Featureattributes
 zurückgegeben werden kann. Der Funktion werden zwei Argumente übergeben: Das zu
-stylende ``feature`` und die aktuelle ``resolution`` (~Maßstab). Nehmen wir an,
+stylende ``feature`` und die aktuelle ``resolution``. Nehmen wir an,
 Sie wollten alle Features, die ein Attribut ``class`` mit Wert ``someClass``
 besitzen, speziell stylen, so könnte Ihre Stylingfunktion wie folgt aussehen:
 
@@ -43,10 +43,10 @@ Stildeklarationsböcke: Symbolizer
 ---------------------------------
 
 Das Äquivalent zu einem Block von Stildeklarationen aus CSS sind in ol3 
-sogenannte `symbolizer`. Üblicherweise handelt es sich hierbei um Instanzen der
+sogenannte *symbolizer*. Üblicherweise handelt es sich hierbei um Instanzen der
 Klassen im Namensraum ``ol.style``. Um Polygon-Features etwa mit blauem
-Hintergrund und eine 1-Pixel breiten Rahmen in olvgrün zu zeichnen, würde man
-zwei `symbolizer` verwenden können:
+Hintergrund und einem 1-Pixel breiten Rahmen in olivgrün zu zeichnen, würde man
+zwei *symbolizer* verwenden können:
 
 
 .. code-block:: javascript
@@ -62,7 +62,7 @@ zwei `symbolizer` verwenden können:
     });
 
 
-Je nach Geometrietyp können verschiedene `symbolizer` verwendet werden. Linien
+Je nach Geometrietyp können verschiedene *symbolizer* verwendet werden. Linien
 verhalten sich weitestgehend wie Polygone, akzeptieren jedoch keine Füllung.
 Punkte können derzeit mittels ``ol.style.Circle`` (für Kreissymbole) oder
 ``ol.style.Icon`` (z.B. für png-Bilder) ausgestaltet werden. Schauen wir uns ein
@@ -87,12 +87,12 @@ Beispiel mit Kreissymbolen an:
 
 Jedes ``ol.style.Style``-Objekt hat vier Schlüssel: ``fill``, ``image``,
 ``stroke`` und ``text``. Optional existiert eine ``zIndex``-Eigenschaft. Die
-Sytkefunktion gibt ein Array von ``ol.style.Style``-Objekten zurück.
+Stylefunktion gibt ein Array von ``ol.style.Style``-Objekten zurück.
 
-Angenommen alle Features sollten Rot gezeichnet werden, außer denjenigen, die
+Angenommen alle Features sollten rot gezeichnet werden, außer denjenigen, die
 ein ``class``-Attribut mit dem Wert ``"someClass"`` haben (und diese sollen
 wie oben blau gefüllt sein und einen 1-Pixel breiten Rand in oliv haben), so
-könnte die Funktion wier folgt aussehen. 
+könnte die Funktion wie folgt aussehen. 
 
 
 .. code-block:: javascript
@@ -132,7 +132,7 @@ wird hierzu eine `closure` verwendet.
 
     Auch Features akzeptieren in ihrer ``style``-Konfigurationsoption eine
     Funktion. Jene wird mit der aktuellen ``resolution`` aufgerufen und erlaubt
-    ein sehr indivuelles Stylen je Feature.
+    ein sehr indivuelles Stylen je Feature und Maßstab.
 
 
 Pseudoklassen
@@ -162,6 +162,6 @@ Ein Beispiel wäre etwa:
       })
     });
 
-Nachdem wir die basiskonzepte nun kennen, können wir uns nun der
+Nachdem wir die Basiskonzepte nun kennen, können wir uns nun der konkreten
 :ref:`Ausgestaltung von Vektorlayern <openlayers.style>` zuwenden.
 

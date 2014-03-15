@@ -4,7 +4,7 @@ Features neuzeichnen
 ====================
 
 Neue Features kann man mittels einer ``ol.interaction.Draw`` zeichnen. Eine 
-solche ``Draw``-Interaktion benötigt beim initialisieren eine Vekto ``source``
+solche ``Draw``-Interaktion benötigt beim initialisieren eine Vektor-``source``
 und einen Geometrietyp.
 
 Vektorlayer und ``Draw``-Interaktion erzeugen
@@ -92,7 +92,7 @@ Vektorlayer und ``Draw``-Interaktion erzeugen
 
 .. rubric:: Zusatzaufgabe
 
-#.  Erzeugen Sie einen `Eventhandler` der jeweils für ein neu gezeichnetes
+#.  Erzeugen Sie einen *Eventhandler* der jeweils für ein neu gezeichnetes
     Feature dessen Koordinaten auf der Konsole ausgibt. (Tipp: der Event
     lautet `drawend`).
 

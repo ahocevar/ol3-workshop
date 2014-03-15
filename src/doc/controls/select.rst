@@ -5,10 +5,10 @@ Features selektieren
 
 In den vorherigen Abschnitten zu Layern haben wir gelernt, das wir geographische
 Entitäten (`Features`) als Vektoren in ol3 laden und dynamisch auf die Karte
-zeichnen können. Einer der Vorteile von Vektordaten ist die einfache Möglichkeit
-zur Interaktion mit jenen im Kartenclient. Wir wollen nun einen Vektorlayer
-erzeugen, in dem Benutzer Features selektieren können und Informationen zum
-ausgewählten Objekt erhalten.
+zeichnen können. Einer der Vorteile von Vektordaten, ist die einfache 
+Möglichkeit zur Interaktion mit jenen im Kartenclient. Wir wollen nun einen
+Vektorlayer erzeugen, in dem Benutzer Features selektieren können und
+Informationen zum ausgewählten Objekt erhalten.
 
 
 Vektorlayer und ``Select``-Interaktion erzeugen

@@ -66,9 +66,13 @@ ol3-basierten Karte an:
 .. rubric:: Übungen
 
 #.  Kopieren Sie obigen Text in eine neue Datei :file:`map.html`, die Sie im
-    Verzeichnis ``ol3-ws/ol3-training-master`` abspeichern.
+    Verzeichnis 
+    
+    ``ol3-ws/ol3-training-master``
+    
+    abspeichern.
 
-#.  Öffnen Sie die HTML-Seite inj einem Browser: @workshop_url@/map.html
+#.  Öffnen Sie die HTML-Seite in einem Browser: @workshop_url@/map.html
 
 .. figure:: map1.png
    

@@ -1,10 +1,10 @@
 .. _openlayers.layers.imagevector:
 
-Statische Vektoren (`Image Vector`)
-===================================
+Statische Vektoren (`ImageVector`)
+==================================
 
-Wenn sowohl die daten als auch deren Ausgestalten nicht dynamisch sondern im
-Grunde `fix` sind, kann es aus Perfomancegründen Sinn machen, das ol3 ein Bild
+Wenn sowohl die Daten als auch deren Ausgestalten nicht dynamisch, sondern im
+Grunde *fix* sind, kann es aus Perfomancegründen Sinn machen, dass ol3 ein Bild
 der Vektordaten berechnet. 
 
 
@@ -100,15 +100,15 @@ welchem die Erdbebendaten auf der Weltkarte angezeigt werden.
 .. note::
 
     Wenn alles korrekt ist, sehen Sie die gleichen Daten wie zuvor, selbst 
-    `feature detection` sollte noch funktionieren. Allerdings sollten die Daten
-    weniger scharf gerendert werden. Effektiv haben wir Perfomance zu Gunsten
-    der Qualität des renderings gewonnen.
+    *feature detection* (aus einer Zusatzaufgabe) sollte noch funktionieren.
+    Allerdings sollten die Daten weniger scharf gerendert werden. Effektiv haben
+    wir Perfomance zu Gunsten der Qualität des Renderings gewonnen.
 
 
 Details des Beispiels
 `````````````````````
 
-Wir werfen einen erneuten Blick auf die Erzegung des ``ol.layer.Image``.
+Wir werfen einen erneuten Blick auf die Erzeugung des ``ol.layer.Image``.
 
 .. code-block:: javascript
 
@@ -132,8 +132,8 @@ Wir verwenden ``ol.layer.Image`` statt ``ol.layer.Vector``, trotzdem können wir
 nach wie vor, mittels ``ol.source.ImageVector``, auf die zuvor verwendete
 ``source`` vom Typ ``ol.source.GeoJSON`` zurückgreifen.
 
-Anders als zuvor wird die Ausgestaltung als `style` nicht dem Layer sondern der
-``ol.source.ImageVector`` mitgegeben.
+Anders als zuvor wird die Ausgestaltung als ``style`` *nicht* dem Layer sondern
+der ``ol.source.ImageVector`` mitgegeben.
 
 
 .. rubric:: Zusatzaufgabe

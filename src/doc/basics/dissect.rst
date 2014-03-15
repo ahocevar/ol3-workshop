@@ -7,7 +7,7 @@ Wie in dem :ref:`vorherigen Abschnitt <config.map>` erwähnt wurde, besteht
 unsere HTML-Karte aus :ref:`HTML-Markup (Auszeichnung) <config.dissect.markup>`,
 :ref:`CSS-Deklarationen (Stil) <config.dissect.style>` und
 :ref:`JavaScript-Initialisierungs-Code (Verhalten) <config.dissect.code>`. Wir
-werden uns jeden dieser Teile nun ein wenig genauer betrachten.
+werden uns jeden dieser Teile nun ein wenig genauer anschauen.
 
 
 .. _config.dissect.markup:
@@ -61,10 +61,11 @@ bestimmt:
       }
     </style>
 
-Wir verwenden als CSS-Selektor ``#map`` (dies war ja die id des Ziel-``<div>``)
-und setzen die Breite (``512px``) und Höhe (``256px``) des Containers.
+Wir verwenden als CSS-Selektor ``#map`` (dies war ja die ``id`` des 
+Ziel-``<div>``) und setzen die Breite (``512px``) und Höhe (``256px``) des
+Containers.
 
-Diese Regel ist direkt im ``<head>``-Element innerhalb eines 
+Diese Regel ist direkt im ``<head>`` der Seite innerhalb eines 
 ``<style>``-Elementes angegeben. Oft werden Sie später solche Angaben jedoch
 auch in einem seperaten Stylesheet notieren.
 
@@ -106,7 +107,7 @@ der Karte. Wir haben hier den gesamten Code innerhalb eines
 
     Die Reihenfolge dieser Schritte ist sehr wichtig. Bevor unser
     benutzerdefiniertes Skript ausgeführt werden kann, muss die ol3-Bibliothek
-    geladen werden. In unserem Beispiel wird die ol3 im ``<head>`` unseres
+    geladen werden. In unserem Beispiel wird ol3 im ``<head>`` unseres
     Dokuments mit ``<script src="ol3/ol.js"></script>`` geladen.
     
     Analog hierzu kann auch der oben aufgeführte Karten-Initialisierungs-Code
@@ -116,7 +117,7 @@ der Karte. Wir haben hier den gesamten Code innerhalb eines
     ``<script>``-Tag erst direkt vor dem schließenden ``</body>`` notieren,
     stellen wir sicher, dass der Karten-Container zur Verfügung steht.
 
-Schauen wir uns die weniggen Zeilen JavaScript genauer an, um zu verstehen, wie
+Schauen wir uns die wenigen Zeilen JavaScript genauer an, um zu verstehen, wie
 wir die Karte erzeugen. Unser Script erzeugt eine Instanz der Klasse ``ol.Map``
 mit einigen Konfigurations-Optionen:
 
@@ -130,7 +131,7 @@ mit einigen Konfigurations-Optionen:
 
 Wir verwenden den Wert des ``id``-Attributs unseres Karten-Containers um dem
 Map-Konstruktor mitzuteilen, in welches Element wir die Karte gerendert haben
-möchten. Wir verwenden also dewn String-Wert ``"map"``. Diese Syntax ist
+möchten. Wir verwenden also den String-Wert ``"map"``. Diese Syntax ist
 eine bequeme Kurzform. Statt eines Strings kann auch eine Referenz zu dem
 Element angegeben werden (Solch eine Referenz kannn man etwa über 
 ``document.getElementById("map")`` erhalten). 
@@ -139,8 +140,8 @@ Element angegeben werden (Solch eine Referenz kannn man etwa über
 ``ol.Map``-Konfigurationsoption ``renderer``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Die Option ``renderer`` legt fest, welcher `Renderer` von ol3 verwendet werden
-soll. Derzeit gibt es drei verschiedene renderer-Typen:
+Die Option ``renderer`` legt fest, welcher *Renderer* von ol3 verwendet werden
+soll. Derzeit gibt es drei verschiedene ``renderer``-Typen:
 
 * den DOM-Renderer,
 * den Canvas-Renderer und
@@ -161,7 +162,7 @@ verwenden; dies verbietet die `Same-Origin-Policy <https://developer.mozilla.org
 ``ol.Map``-Konfigurationsoption ``layers``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Die ``layers`` Konfiguration erwartet eine Liste (alls JavaScript-Array) aller
+Die ``layers`` Konfiguration erwartet eine Liste (als JavaScript-Array) aller
 Kartenthemen, die wir auf der Karte dargestellt haben wollen.
 
 .. code-block:: javascript
@@ -185,11 +186,11 @@ Um eine Karte sehen zu können, benötigen wir wenigstens einen Layer.
 ``ol.Map``-Konfigurationsoption ``view``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Als letztes wollen wir den ``view`` (etwa `Kartenausschnitt`) konfigurieren. Wir
+Als letztes wollen wir den ``view`` (etwa *Kartenausschnitt*) konfigurieren. Wir
 spezifizieren eine Projektion (``projection``), ein Kartenzentrum (``center``)
 und den initialen Zoomlevel (``zoom``). Außerdem legen wir eine
 ``maxResolution`` fest, so dass wir keine Kartenausschnitte anfordern, die von
-dem entfernten Dienst (in disem Falle ein GeoWebCache) nicht geliefert werden
+dem entfernten Dienst (in diesem Falle ein *GeoWebCache*) nicht geliefert werden
 können.
 
 
@@ -203,10 +204,10 @@ können.
     })
 
 
-herzlichen Glückwuunsch: Sie haben soebnen erfolgreich Ihre erste
-Kartenanwendung mit ol3 seziert und analysiert!
+Herzlichen Glückwunsch: Sie haben soeben erfolgreich Ihre erste
+Kartenanwendung mit ol3 programmiert, seziert und analysiert!
 
-Um erfolgreich weiterarbeiten zu könne, schaen wir uns
+Um erfolgreich weiterarbeiten zu können, schauen wir uns
 :ref:`weitere Ressourcen <config.resources>` an, die Sie als ol3-Entwickler
 benötigen werden.
 

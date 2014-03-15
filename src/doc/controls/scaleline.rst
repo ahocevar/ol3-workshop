@@ -4,7 +4,7 @@ Einen Maßstabsbalken einblenden
 ===============================
 
 Auf Karten werden nicht selten Maßstabsbalken zur besseren Orientierung
-angezeigt. Mit ol3 ist dies auch möglich; die Klasse ``ol.control.SaleLine``
+angezeigt. Mit ol3 ist dies auch möglich: die Klasse ``ol.control.ScaleLine``
 kann hierzu verwendet werden.
 
 Erzeugung des Maßstabsbalkens
@@ -35,10 +35,10 @@ Erzeugung des Maßstabsbalkens
 Anpassen der ``ScaleLine``-Control
 ----------------------------------
 
-Vermutlich finden Sie auch, dass der Maßstabsbalken schlecht zu lesen ist, wenn
-er auf der Weltkarte angezeigt wird. Man kann verschiedenen Dinge unternehmen um
-die Lesbarkeit zu verbessern. Vielleicht reicht es, wenn  wir den CSS-Stil
-anpassen? Wir wollen zunächst eine ander Hintergrundfarbe festlegen und auch
+Vermutlich finden auch Sie, dass der Maßstabsbalken schlecht zu lesen ist, wenn
+er auf der Weltkarte angezeigt wird. Man kann verschiedenen Dinge unternehmen,
+um die Lesbarkeit zu verbessern. Vielleicht reicht es, wenn  wir den CSS-Stil
+anpassen? Wir wollen zunächst eine andere Hintergrundfarbe festlegen und auch
 etwas mehr Innenabstand zuweisen:
 
     .. code-block:: html
@@ -50,20 +50,20 @@ etwas mehr Innenabstand zuweisen:
         }
 
 
-Aus didaktischen Gründen wollen wir aber annehmen, dass Ihr Karten-``div``
+Aus didaktischen Gründen wollen wir aber nun annehmen, dass Ihr Karten-``div``
 sowieso schon überfüllt ist, und Sie daher entschieden haben, dass der
 Maßstabsbalken in ein separates ``<div>``-Element außerhalb der Karte plaziert
 werden sollte.
 
 Hierzu werden wir zunächst ein solches Element dem HTML hinzufügen, und
-anschließend der ``ol.control.ScaleLine`` mitteilen, wo sie gerendert werden
+anschließend der ``ol.control.ScaleLine`` mitteilen, **wo** sie gerendert werden
 soll.
 
 .. rubric:: Übungen
 
 #.  Erzeugen sie ein neues ``<div>``-Element auf Ihrer HTML-Seite. Um den
-    Zugriff auf das element zu vereinfachen, geben Sie dem ``<div>`` bitte die
-    ``id="scale-line"``. Fügen Sie zum Beispiel den nachfolgenden Code ein:
+    Zugriff auf das Element zu vereinfachen, geben Sie dem ``<div>`` bitte die
+    ``id="scale-line"``. Fügen Sie z.B. den nachfolgenden Code ein:
 
     .. code-block:: html
     
@@ -103,7 +103,7 @@ soll.
 
     .. figure:: scaleline2.png
    
-       Ein Maßstabsbalken in separatem ``<div>``.
+       Ein Maßstabsbalken in separatem ``<div>``-Element.
 
 .. note::
 

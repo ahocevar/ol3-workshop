@@ -4,9 +4,9 @@ Vektorlayer ausgestalten
 ========================
 
 
-.. rubric:: Tasks
+.. rubric:: Übungen
 
-#.  Wir beginnen mit einem lauffähigen Beispiel welches Gebäudegrundrisse in
+#.  Wir beginnen mit einem lauffähigen Beispiel, welches Gebäudegrundrisse in
     einem Vektorlayer darstellt. Öffnen Sie die Datei ``map.html`` im Texteditor
     und fügen Sie den nachfolgenden Code ein:
 

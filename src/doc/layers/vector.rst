@@ -3,18 +3,19 @@
 Vektorlayer
 ===========
 
-Vektorlayer werden durch die Klasse ``ol.layer.Vector`` bereitsgestellt. Dieser
-Layertypus kümmert sich um die Darstellung von Vektordaten auf der Client-Seite.
+Vektorlayer werden durch die Klasse ``ol.layer.Vector`` bereitgestellt. Dieser
+Layertyp kümmert sich um die Darstellung von Vektordaten auf der Client-Seite.
 
-Derzeit unterstützt in ol3 ausschließlich der `Canvas`-Renderer die Verwendung
+Derzeit unterstützt in ol3 ausschließlich der *Canvas*-Renderer die Verwendung
 von ``ol.layer.Vector``.
 
 
 Vektorfeatures gerendert im Browser
 -----------------------------------
 
-Wir kehren zunächst mit unsere karte zurück auf das Erste Beispiel mit einer
-Ansicht der gesamten Welt. Hierauf wollen wir anschließend Vektoren darstellen.
+Wir kehren zunächst mit unserer Karte zurück auf den Stand des ersten Beispiels
+(Ansicht der gesamten Welt). Hierauf wollen wir anschließend Vektoren
+darstellen.
 
 .. code-block:: html
 
@@ -69,7 +70,7 @@ Ansicht der gesamten Welt. Hierauf wollen wir anschließend Vektoren darstellen.
 #.  Im Initialisierungscode der Karte fügen Sie bitte nach dem ``Tile``-Layer
     einen weiteren Layer hinzu. Kopieren Sie am einfachsten hierzu die folgenden
     Zeilen, die einen Vektorlayer definieren, der seine Daten aus einer lokalen
-    GeoJSON-datei bezieht:
+    GeoJSON-Datei bezieht:
 
     .. code-block:: javascript
 
@@ -102,7 +103,7 @@ Ansicht der gesamten Welt. Hierauf wollen wir anschließend Vektoren darstellen.
 Details des Beispiels
 `````````````````````
 
-Wir schauen uns nun die Erzeugung des Vektorlayer im Detail an um zu verstehen,
+Wir schauen uns nun die Erzeugung des Vektorlayers im Detail an um zu verstehen,
 was im Beispiel passiert.
 
 .. code-block:: javascript
@@ -120,10 +121,10 @@ was im Beispiel passiert.
       })
     })
 
-Der Layer wird mit dem Titel (``title``) `Earthquakes` und einigen weiteren
+Der Layer wird mit dem Titel (``title``) *Earthquakes* und einigen weiteren
 Optionen initialisisert. Insbesondere von Relevanz ist der ``source``-Schlüssel,
-welchem wir eine Instanz von ``ol.source.GeoJSON`` zuweisen. Diese ``source``
-verweist auf die URL zur GeoJSON-Datei.
+welchem wir eine Instanz von ``ol.source.GeoJSON`` zuweisen. Diese 
+``source`` verweist auf die URL zur GeoJSON-Datei.
 
 .. note::
 
@@ -143,6 +144,6 @@ verweist auf die URL zur GeoJSON-Datei.
 
 #.  Die hier verwendeten Daten entstammen der Seite 
     http://earthquake.usgs.gov/earthquakes/catalogs/ des USGS. Recherchieren Sie
-    dort, ob Sie weitere geodaten in einem von ol3 unterstützten Format finden
+    dort, ob Sie weitere Geodaten in einem von ol3 unterstützten Format finden
     und versuchen Sie, jene in ``map.html`` zu integrieren.
 

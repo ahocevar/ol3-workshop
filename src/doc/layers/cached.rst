@@ -4,16 +4,17 @@ Vorberechnete Kacheln (`tiles`)
 ===============================
 
 Standardmäßig fragt der ``Tile``-Layer Bilder in 256 x 256 Pixel Größe an, um
-den Kartenviewport (und einen Bereich darüber hinaus) zu füllen. Während die
-Karte verschoben oder gezoomt wird, gehen weitere Anfragen in eben dieser Größe
-an den Server um jeweils den aktuellen Bereich auszufüllen. Einige Bilder wird
-der Browser lokal vorhalten (`cachen`) trotzdem ist der Prozessierungsaufwand
-auf dem Server unter Umständen hoch, da die Bilder dynamisch berechnet werden.
+den Kartenviewport (und einen kleinen Bereich darüber hinaus) zu füllen. Während
+die Karte verschoben oder gezoomt wird, gehen weitere Anfragen in eben dieser
+Größe an den Server, um jeweils den aktuellen Bereich auszufüllen. Einige Bilder
+wird der Browser lokal vorhalten (*cachen*) trotzdem ist der
+Prozessierungsaufwand auf dem Server unter Umständen hoch, da die Bilder 
+dynamisch berechnet werden.
 
-Da die Anfragen in einem regulären Grid deterministisch sind, kann ein Server
-die Anfragen ggf. vorberechnen und bei einer Anfrage nur die bereits bestehende
-Kachel ausliefern. Üblicherweise führt dies zu einer Performancesteigerung
-sowohl auf der Client- als auch auf der Serverseite.
+Da die letztlich generierten Anfragen in einem regulären Grid deterministisch
+sind, kann ein Server die Anfragen ggf. vorberechnen und bei einer Anfrage nur
+ein hoffentlich bereits bestehendes Bild ausliefern. Üblicherweise führt dies zu
+einer Performancesteigerung sowohl auf der Client- als auch auf der Serverseite.
 
 
 .. _openlayers.layers.cached.xyz:
@@ -21,16 +22,16 @@ sowohl auf der Client- als auch auf der Serverseite.
 Die Klasse ``ol.source.XYZ``
 ----------------------------
 
-Die `Web Map Service` Spezifikation räumt anfragenden Clients eine große
+Die *Web Map Service*-Spezifikation räumt anfragenden Clients eine große
 Freiheit ein, die letztlich in unendlich vielen verschiedenen Requests münden.
 Ohne weitere Einschränkungen ist es in der Praxis daher sehr schwierig (wenn
-nicht unmöglich), diese Anfragen zu chachen.
+nicht unmöglich), diese Anfragen zu *cachen*.
 
 Das gegenteilige Extrem stellt ein Service dar, der ausschließlich eine fixe
 Anzahl an Zoomstufen unterstützt, und in jenen auch nur solche, die in ein
 gewisses Grid passen. Solche Dienste lassen sich in einer XYZ-Quelle
-generalisiseren; X und Y repräsentieren dann Spalten und Zeilen in jenem Grid
-und Z steht für die Zoomstufe.
+generalisiseren; `X` und `Y` repräsentieren dann Spalten und Zeilen in jenem
+Grid und `Z` steht für die Zoomstufe.
 
 
 .. _openlayers.layers.cached.osm:
@@ -39,11 +40,11 @@ Die Klasse ``ol.source.OSM``
 ----------------------------
 
 Das `OpenStreetMap (OSM) <http://www.openstreetmap.org/>`_\ -Projekt stellt
-vielfaltige & weltweite Geodaten zur Verfügung, die von Freiwilligen gesammelt
-und erhoben wurden. OSM stellt verschiedene gerenderte Kachel-Sets dieser Daten
-zur Verfügung. Da jene Kacheln analog zum
+vielfaltige & weltweite Geodaten frei zur Verfügung, die von Freiwilligen
+gesammelt und erhoben wurden. OSM stellt verschiedene gerenderte Kachel-Sets
+dieser Daten zur Verfügung. Da jene Kacheln analog zum
 :ref:`XYZ-Grid <openlayers.layers.cached.xyz>` organisiert sind, kann man sie
-in ol3 nutzen. Die Klasse ``ol.source.OSM`` greift auf diese `tiles` zu.
+in ol3 nutzen. Die Klasse ``ol.source.OSM`` greift auf diese *tiles* zu.
 
 
 .. _openlayers.layers.cached.example:
@@ -51,7 +52,7 @@ in ol3 nutzen. Die Klasse ``ol.source.OSM`` greift auf diese `tiles` zu.
 .. rubric:: Übungen
 
 #.  Öffen Sie die Datei ``map.html`` vom
-    :ref:`vorherigen Abschnitt <openlayers.layers.wms>` im texteditor und
+    :ref:`vorherigen Abschnitt <openlayers.layers.wms>` in einem Texteditor und
     ändern Sie die Karten-Initialisierung wie folgt:
     
     .. code-block:: html
@@ -73,7 +74,7 @@ in ol3 nutzen. Die Klasse ``ol.source.OSM`` greift auf diese `tiles` zu.
         </script>
 
 #.  Im ``<head>`` Bereich des Dokumentes fügen Sie bitte einige
-    CSS-Deklarationen für die Copyright-Angaben (`attribution`) von ol3 hinzu.
+    CSS-Deklarationen für die Copyright-Angaben (*attribution*) von ol3 hinzu.
     
     .. code-block:: html
     
@@ -120,9 +121,9 @@ metrischer Projektion vorliegen. Eine vollständige Diskussion von
 Koordinatenbezugssystemen liegt sicherlich außerhalb des Fokus dieses Workshops,
 aber es ist wichtig, das wesentliche Konzept zu verstehen.
 
-ol3 muss das Koordinatensystem Ihrer daten kennen. Intern werden Projektionen
+ol3 muss das Koordinatensystem Ihrer Daten kennen. Intern werden Projektionen
 von der Klasse ``ol.proj.Projection`` abgebildet. Die ``transform`` Funktion 
-im ``ol.proj`` Namensraum akzeptiert Auch `Strings`, die das Koordinatensystem
+im ``ol.proj`` Namensraum akzeptiert Auch *Strings* die das Koordinatensystem
 repräsentieren (oben sind dies ``"EPSG:4326"`` und ``"EPSG:3857"``). 
 
 
@@ -164,8 +165,8 @@ Des weiteren benötigen wir zwei zusätzliche ``<script>``-Tags:
       src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/defs/EPSG21781.js">
     </script>
 
-Unter http://spatialreference.org/ kann man die relevanten Informationen
-nachschauen, sofern der EPSG-Code bekannt ist.
+Unter http://spatialreference.org/ oder http://epsg.io/ kann man die relevanten
+Informationen nachschauen, sofern der EPSG-Code bekannt ist.
 
 
 Erzeugung des Layers
@@ -199,13 +200,12 @@ Stil
 Wie ol3-Controls zu handhaben sind, steht nicht im Fokus dieses Abschnitts. Als
 kleine Vorschau sei jedoch hier bereits erwähnt, dass standardmäßig jede
 ``ol.Map`` eine ``ol.control.Attribution`` Control hat, die etwa
-Copyright-Informationen zu den Kartenthemen enthält.
+Copyright-Informationen zu den Kartenthemen darstellt.
 
 Obige CSS-Angaben ändern das Aussehen dieser Angaben, welche auf der Karte im
 unteren Bereich sichtbar sind.
 
-
-Nachdem wir erfolgreich öffentlich verfügbare gekachelte `TileSets` verwendet
+Nachdem wir erfolgreich öffentlich verfügbare gekachelte *TileSets* verwendet
 haben, schauen wir uns an, wie wir
 :ref:`proprietäre Rasterthemen <openlayers.layers.proprietary>` einsetzen
 können.
