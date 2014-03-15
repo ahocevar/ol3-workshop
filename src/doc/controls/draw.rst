@@ -1,16 +1,20 @@
 .. _openlayers.controls.draw:
 
-Drawing Features
-================
+Features neuzeichnen
+====================
 
-New features can be drawn by using an ``ol.interaction.Draw``. A draw interaction is constructed with a vector source and a geometry type.
+Neue Features kann man mittels einer ``ol.interaction.Draw`` zeichnen. Eine 
+solche ``Draw``-Interaktion benötigt beim initialisieren eine Vekto ``source``
+und einen Geometrietyp.
 
-Create a Vector Layer and a Draw Interaction
-````````````````````````````````````````````
+Vektorlayer und ``Draw``-Interaktion erzeugen
+`````````````````````````````````````````````
 
-.. rubric:: Tasks
+.. rubric:: Übungen
 
-#.  Let's start with the example below. Open ``map.html`` in your text editor and make sure it looks something like the following:
+#.  Wir beginnen mit dem unten aufgeführten Beispiel. Öffnen Sie die Datei
+    ``map.html`` im Texteditor und stellen Sie sicher, dass der Inhalt etwa wie
+    folgt aussieht.
     
     .. code-block:: html
 
@@ -76,15 +80,21 @@ Create a Vector Layer and a Draw Interaction
           </body>
         </html>
         
-#.  Save your changes to ``map.html`` and open the page in your browser:  @workshop_url@/map.html. To see drawing of point geometries in action, click in the map to add a new feature:
+#.  Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+    neu: @workshop_url@/map.html
     
+    Klicken Sie mit der linken Maustaste auf die Karte, um neue Features
+    hinzuzufügen.
+
     .. figure:: draw1.png
    
-       Using a draw interaction to add features to a vector source.
+       Featureerzeugung mittels einer ``Draw``-Interaktion.
 
-.. rubric:: Bonus Tasks
+.. rubric:: Zusatzaufgabe
 
-#.  Create a listener which gets the new feature's X and Y after it is drawn.
+#.  Erzeugen Sie einen `Eventhandler` der jeweils für ein neu gezeichnetes
+    Feature dessen Koordinaten auf der Konsole ausgibt. (Tipp: der Event
+    lautet `drawend`).
 
 .. only:: instructor
 

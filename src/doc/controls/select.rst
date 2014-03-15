@@ -1,16 +1,25 @@
 .. _openlayers.controls.select:
 
-Selecting Features
-==================
+Features selektieren
+====================
 
-As we've seen in the layers module, we can pull features as vectors and draw them on top of a base map. One of the advantages of serving vector data is that users can interact with the data. In this example, we create a vector layer where users can select and view feature information.
+In den vorherigen Abschnitten zu Layern haben wir gelernt, das wir geographische
+Entitäten (`Features`) als Vektoren in ol3 laden und dynamisch auf die Karte
+zeichnen können. Einer der Vorteile von Vektordaten ist die einfache Möglichkeit
+zur Interaktion mit jenen im Kartenclient. Wir wollen nun einen Vektorlayer
+erzeugen, in dem Benutzer Features selektieren können und Informationen zum
+ausgewählten Objekt erhalten.
 
-Create a Vector Layer and a Select Interaction
-``````````````````````````````````````````````
 
-.. rubric:: Tasks
+Vektorlayer und ``Select``-Interaktion erzeugen
+```````````````````````````````````````````````
 
-#.  Let's start with the working example from a :ref:`previous section <openlayers.layers.vector>`.  Open ``map.html`` in your text editor and make sure it looks something like the following:
+.. rubric:: Übungen
+
+#.  Wir beginnen mit dem lauffähigen Beispiel aus dem
+    :ref:`vorherigen Abschnitt <openlayers.layers.vector>`. Öffnen Sie die Datei
+    ``map.html`` im Texteditor und stellen Sie sicher, dass der Inhalt etwa wie
+    folgt aussieht.
     
     .. code-block:: html
 
@@ -87,8 +96,11 @@ Create a Vector Layer and a Select Interaction
           </body>
         </html>
         
-#.  Save your changes to ``map.html`` and open the page in your browser:  @workshop_url@/map.html. To see feature selection in action, use the mouse-click to select an earthquake:
+#.  Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+    neu: @workshop_url@/map.html
     
+    Klicken Sie mit der linken Maustaste auf ein Feature um es zu selektieren.
+
     .. figure:: select1.png
    
-       Using an interaction to select features from a vector layer.
+       Featureselektion mittels einer ``Select``-Interaktion.

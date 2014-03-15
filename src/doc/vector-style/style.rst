@@ -1,10 +1,15 @@
 .. _openlayers.style:
 
-Styling Vector Layers
-=====================
+Vektorlayer ausgestalten
+========================
 
-#.  We'll start with a working example that displays building footprints in a vector layer.  Open your text editor and save the following as ``map.html`` in the root of your workshop directory:
-    
+
+.. rubric:: Tasks
+
+#.  Wir beginnen mit einem lauffähigen Beispiel welches Gebäudegrundrisse in
+    einem Vektorlayer darstellt. Öffnen Sie die Datei ``map.html`` im Texteditor
+    und fügen Sie den nachfolgenden Code ein:
+
     .. code-block:: html
 
         <!doctype html>
@@ -49,9 +54,15 @@ Styling Vector Layers
           </body>
         </html>
 
-#.  Open this ``map.html`` file in your browser to see buildings with a red outline:  @workshop_url@/map.html
+#.  Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+    neu: @workshop_url@/map.html
+    
+    Sie sollten rot umrandete Gebäudegrundrisse sehen.
 
-#.  With a basic understanding of :ref:`styling in OpenLayers <openlayers.vector.style-intro>`, we can create a style function that displays buildings in different colors based on the size of their footprint. In your map initialization code, replace the style config option for the ``Buildings`` layer with the following:
+#.  Nachdem uns :ref:`Styling in ol3 <openlayers.vector.style-intro>`, nicht
+    mehr fremd ist, können wir eine Stylefunktion erzeugen, die je nach der
+    Größe des Grundrisses die Features einfärbt. Ersetzen Sie die
+    ``style``-Konfigurationsoption des Layers mit folgenden Zeilen:
     
     .. code-block:: javascript
 
@@ -73,13 +84,16 @@ Styling Vector Layers
               };
             })()
 
-#.  Save your changes and open ``map.html`` in your browser: @workshop_url@/map.html
+#.  Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+    neu: @workshop_url@/map.html
 
     .. figure:: style1.png
 
-       Buildings colored by footprint area.
+       Die Grundrisse werden nun nach Grundfläche ausgestaltet.
 
-#.  Now as a final step, let's add a label to the buildings. For simplicity we're only using a label and a black outline as the style.
+
+#.  Schließlich wollen wir unsere Features nun noch mit einem textlichen *Label*
+    versehen:
 
     .. code-block:: javascript
 
@@ -107,8 +121,9 @@ Styling Vector Layers
               };
             })()
 
-#.  Save your changes and open ``map.html`` in your browser: @workshop_url@/map.html
+#.  Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+    neu: @workshop_url@/map.html
 
     .. figure:: style2.png
 
-       Buildings labeled by the key field.
+       Die Gebäude werden nun auch mit einem *Label* gerendert.

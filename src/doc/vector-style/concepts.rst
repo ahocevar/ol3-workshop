@@ -1,23 +1,36 @@
 .. _openlayers.vector.basics:
 
-Working with Vector Layers
-==========================
+Mit Vektorlayern arbeiten
+=========================
 
-The base ``ol.layer.Vector`` constructor provides a fairly flexible layer type. By default, when you create a new vector layer, no assumptions are made about where the features for the layer will come from, since this is the domain of ``ol.source.Vector``. Customizing the rendering style is addressed in an :ref:`upcoming section <openlayers.vector.style-intro>`. This section introduces the basics of vector data :ref:`formats <openlayers.vector.basics.format>`.
+Mit ``ol.layer.Vector`` steht in ol3 ein durchaus recht komplexer Layertyp zur
+Verfügung. Standardmäßig werden beim Verwenden dieses Layers von ol3 keine
+Annahmen dazu gemacht, wo dieser Layer seine Daten bezieht, hierum kümmert sich
+die Klasse ``ol.source.Vector``. Wie man Vektorlayer ausgestaltet, beschreibt
+:ref:`einer der nächsten Abschnitte <openlayers.vector.style-intro>`. Hier 
+werden wir uns eine Grundlagen zu Vektordaten anschauen.
 
 
 .. _openlayers.vector.basics.format:
 
-ol.format
----------
+``ol.format``
+-------------
 
-The ``ol.format`` classes in OpenLayers 3 are responsible for parsing data from the server representing vector features. Most of the times you won't be using them directly, but you'll be using their corresponding source (e.g. ``ol.source.KML``). The format turns raw feature data into ``ol.Feature`` objects.
+In ol3 kümmern sich die ``ol.format``-Klassen um das Parsen der von einem Server
+gelieferten Daten, die Features enthalten. Meist werden Sie jedoch nicht 
+``ol.format``-Klassen direkt verwenden, sondern eher spezialisierte 
+``source``-Klassen (wie etwa ``ol.source.KML``). Formate transformieren rohe
+Daten in echte ``ol.Feature``-Objekte.
 
-Consider the two blocks of data below. Both represent the same ``ol.Feature`` object (a point in Barcelona, Spain). The first is serialized as `GeoJSON <http://geojson.org>`_ (using the ``ol.format.GeoJSON`` parser). The second is serialized as :abbr:`KML (OGC Keyhole Markup Language)` (using the ``ol.format.KML`` parser).
+Vergleichen Sie bitte die beiden Datenblöcke weiter unten. Beide repräsentieren
+das gleiche ``ol.Feature``-Objekt. Es handelt sich um einen Punkt in Barcelona.
+Die ersten Daten stellen dieses Feature mittels GeoJSON dar (vgl. 
+``ol.format.GeoJSON``). Der zweite Block dagegen enthält
+:abbr:`KML (OGC Keyhole Markup Language)` (vgl. ``ol.format.KML``)
 
 
-GeoJSON Example
-```````````````
+GeoJSON-Beispiel
+````````````````
 
 .. code-block:: json
 
@@ -32,8 +45,8 @@ GeoJSON Example
     }
 
 
-KML Example
-```````````
+KML-Beispiel
+````````````
 
 .. code-block:: xml
 

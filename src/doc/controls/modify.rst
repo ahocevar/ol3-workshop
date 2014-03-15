@@ -1,16 +1,21 @@
 .. _openlayers.controls.modify:
 
-Modifying Features
-==================
+Features modifizieren
+=====================
 
-Modifying features works by using an ``ol.interaction.Select`` in combination with an ``ol.interaction.Modify``. They share a common ``ol.FeatureOverlay``.
+Um features zu verändern, werden wir eine ``ol.interaction.Select`` mit einer
+``ol.interaction.Modify`` kombinieren. Diese Interaktion teilen sich einen
+gemeinsamen ``ol.FeatureOverlay``.
 
-Create a Vector Layer and a Modify Interaction
-``````````````````````````````````````````````
+
+Vektorlayer und ``Modify``-Interaktion erzeugen
+```````````````````````````````````````````````
 
 .. rubric:: Tasks
 
-#.  Let's start with the working example.  Open ``map.html`` in your text editor and make sure it looks something like the following:
+#.  Wir beginnen wieder mit dem unten aufgeführten Beispiel. Öffnen Sie die
+    Datei ``map.html`` im Texteditor und stellen Sie sicher, dass der Inhalt
+    etwa wie folgt aussieht.
     
     .. code-block:: html
 
@@ -89,12 +94,18 @@ Create a Vector Layer and a Modify Interaction
           </body>
         </html>
         
-#.  Save your changes to ``map.html`` and open the page in your browser:  @workshop_url@/map.html. To see feature modification in action, use the mouse-click to select an earth quake and then drag to move the point.
+#.  Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+    neu: @workshop_url@/map.html
+    
+    Klicken Sie mit der linken Maustaste auf die Karte um ein Erdbeben
+    auszuwählen (``interaction.Select``) ziehen Sie das Feature anschließend mit
+    der Maustaste an eine neue Lokation (``interaction.Modify``)
 
-A Closer Look
-`````````````
 
-Let's examine how modifying features works.
+Einige Details
+``````````````
+
+Schauen wir uns genauer an, wie wir Features editieren können.
 
 .. code-block:: javascript
 
@@ -116,4 +127,11 @@ Let's examine how modifying features works.
     var modify = new ol.interaction.Modify({ featureOverlay: overlay });
     var select = new ol.interaction.Select({ featureOverlay: overlay });
 
-We create 2 interactions, an ``ol.interaction.Select`` to select the features before modifying them, and an ``ol.interaction.Modify`` to actually modify the geometries. They share an instance of ``ol.FeatureOverlay`` which is given a style to be used when the feature is selected and dragged for modification. When the user clicks in the map again, the feature will be drawn using the layer's style.
+
+Wir erzeugen zwei Interaktionen, eine Instanz von ``ol.interaction.Select`` um
+Features vor dem editieren auszuwählen, und eine Instanz von 
+``ol.interaction.Modify`` um die Geometrien tatsächlich zu verändern. Beiden 
+Interaktionen weisen wir die gleiche Instanz der Klasse ``ol.FeatureOverlay``
+(mit spezifischen Stilangaben, die während Selektion und Modifikation wirksam 
+sind) zu. Klickt man erneut, so wird das zunächst gewählte / editierte Feature
+wieder im Stil des Layers gezeichnet.
