@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.2. Die Bestandteile der Karte &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="up" title="2. Basiswissen (map &amp; view)" href="index.html" />
+    <link rel="next" title="2.3. Weitere ol3 Ressourcen" href="resources.html" />
+    <link rel="prev" title="2.1. Eine Karte erstellen" href="map.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2.2. Die Bestandteile der Karte</a><ul>
+<li><a class="reference internal" href="#html-markup-auszeichnung">2.2.1. HTML-Markup (Auszeichnung)</a></li>
+<li><a class="reference internal" href="#css-deklarationen-stil">2.2.2. CSS-Deklarationen (Stil)</a></li>
+<li><a class="reference internal" href="#javascript-initialisierungs-code-verhalten">2.2.3. JavaScript-Initialisierungs-Code (Verhalten)</a><ul>
+<li><a class="reference internal" href="#ol-map-konfigurationsoption-target">2.2.3.1. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">target</span></tt></a></li>
+<li><a class="reference internal" href="#ol-map-konfigurationsoption-renderer">2.2.3.2. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">renderer</span></tt></a></li>
+<li><a class="reference internal" href="#ol-map-konfigurationsoption-layers">2.2.3.3. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">layers</span></tt></a></li>
+<li><a class="reference internal" href="#ol-map-konfigurationsoption-view">2.2.3.4. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">view</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="map.html"
+                        title="vorheriges Kapitel">2.1. Eine Karte erstellen</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="resources.html"
+                        title="nächstes Kapitel">2.3. Weitere ol3 Ressourcen</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="die-bestandteile-der-karte">
+<span id="config-dissect"></span><h1>2.2. Die Bestandteile der Karte<a class="headerlink" href="#die-bestandteile-der-karte" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Wie in dem <a class="reference internal" href="map.html#config-map"><em>vorherigen Abschnitt</em></a> erwähnt wurde, besteht
+unsere HTML-Karte aus <a class="reference internal" href="#config-dissect-markup"><em>HTML-Markup (Auszeichnung)</em></a>,
+<a class="reference internal" href="#config-dissect-style"><em>CSS-Deklarationen (Stil)</em></a> und
+<a class="reference internal" href="#config-dissect-code"><em>JavaScript-Initialisierungs-Code (Verhalten)</em></a>. Wir
+werden uns jeden dieser Teile nun ein wenig genauer anschauen.</p>
+<div class="section" id="html-markup-auszeichnung">
+<span id="config-dissect-markup"></span><h2>2.2.1. HTML-Markup (Auszeichnung)<a class="headerlink" href="#html-markup-auszeichnung" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Im HTML ist das Markup für die Karte recht überschaubar; wir brauchen im Grunde
+nur ein Elelemt:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>Dieses <tt class="docutils literal"><span class="pre">&lt;div&gt;</span></tt>-Element wird wie ein Container für den Karten-Viewport
+fungieren. Wir verwenden ein <tt class="docutils literal"><span class="pre">&lt;div&gt;</span></tt>-Element, aber es kann auch jedes andere
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/HTML/Block-level_elements">block-level</a>-Element
+verwendet werden.</p>
+<p>Wir vergeben ein <tt class="docutils literal"><span class="pre">id</span></tt>-Attribut, dadurch können wir es als <tt class="docutils literal"><span class="pre">target</span></tt> unserer
+Karte verwenden.</p>
+</div>
+<div class="section" id="css-deklarationen-stil">
+<span id="config-dissect-style"></span><h2>2.2.2. CSS-Deklarationen (Stil)<a class="headerlink" href="#css-deklarationen-stil" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Zu ol3 gehört auch ein default-Stylesheet, welches festlegt, wie die einzelnen
+Kartenelemente gestylt werden sollen. Wir haben in unserem HTML dieses
+Stylesheet mittels eines <tt class="docutils literal"><span class="pre">&lt;link&gt;</span></tt>-Elements eingebunden:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;ol3/ol.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+<p>ol3 macht keine Annahmen zur Größe der Karte (bzw. des Elementes welches die
+Karte enthalten wird). Genau aus diesem Grunde fügen wir exakt eine weitere
+eigene Style-Deklaration hinzu, die die Dimensionen des Karten-<tt class="docutils literal"><span class="pre">&lt;div&gt;</span></tt>s
+bestimmt:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;ol3/ol.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+  <span class="nf">#map</span> <span class="p">{</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">256px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">512px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+</pre></div>
+</div>
+<p>Wir verwenden als CSS-Selektor <tt class="docutils literal"><span class="pre">#map</span></tt> (dies war ja die <tt class="docutils literal"><span class="pre">id</span></tt> des
+Ziel-<tt class="docutils literal"><span class="pre">&lt;div&gt;</span></tt>) und setzen die Breite (<tt class="docutils literal"><span class="pre">512px</span></tt>) und Höhe (<tt class="docutils literal"><span class="pre">256px</span></tt>) des
+Containers.</p>
+<p>Diese Regel ist direkt im <tt class="docutils literal"><span class="pre">&lt;head&gt;</span></tt> der Seite innerhalb eines
+<tt class="docutils literal"><span class="pre">&lt;style&gt;</span></tt>-Elementes angegeben. Oft werden Sie später solche Angaben jedoch
+auch in einem seperaten Stylesheet notieren.</p>
+</div>
+<div class="section" id="javascript-initialisierungs-code-verhalten">
+<span id="config-dissect-code"></span><h2>2.2.3. JavaScript-Initialisierungs-Code (Verhalten)<a class="headerlink" href="#javascript-initialisierungs-code-verhalten" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Der nächste Schritt zur Karte besteht aus JavaScript-Code zum Initialisieren
+der Karte. Wir haben hier den gesamten Code innerhalb eines
+<tt class="docutils literal"><span class="pre">&lt;script&gt;</span></tt>-Elements ganz am Ende des HTML <tt class="docutils literal"><span class="pre">body</span></tt>-Tag eingefügt:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script&gt;</span>
+  <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span>
+    <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;map&#39;</span><span class="p">,</span>
+    <span class="nx">renderer</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span><span class="p">,</span>
+    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+      <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+        <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">TileWMS</span><span class="p">({</span>
+          <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://maps.opengeo.org/geowebcache/service/wms&#39;</span><span class="p">,</span>
+          <span class="nx">params</span><span class="o">:</span> <span class="p">{</span><span class="nx">LAYERS</span><span class="o">:</span> <span class="s1">&#39;bluemarble&#39;</span><span class="p">,</span> <span class="nx">VERSION</span><span class="o">:</span> <span class="s1">&#39;1.1.1&#39;</span><span class="p">}</span>
+        <span class="p">})</span>
+      <span class="p">})</span>
+    <span class="p">],</span>
+    <span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+      <span class="nx">projection</span><span class="o">:</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+      <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+      <span class="nx">zoom</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">maxResolution</span><span class="o">:</span> <span class="mf">0.703125</span>
+    <span class="p">})</span>
+  <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Bemerkung</p>
+<p>Die Reihenfolge dieser Schritte ist sehr wichtig. Bevor unser
+benutzerdefiniertes Skript ausgeführt werden kann, muss die ol3-Bibliothek
+geladen werden. In unserem Beispiel wird ol3 im <tt class="docutils literal"><span class="pre">&lt;head&gt;</span></tt> unseres
+Dokuments mit <tt class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">src=&quot;ol3/ol.js&quot;&gt;&lt;/script&gt;</span></tt> geladen.</p>
+<p class="last">Analog hierzu kann auch der oben aufgeführte Karten-Initialisierungs-Code
+erst dann erfolgreich ausgeführt werden, wenn das Element, welches später
+die Karte enthalten wird (<tt class="docutils literal"><span class="pre">&lt;div</span> <span class="pre">id=&quot;map&quot;&gt;&lt;/div&gt;</span></tt>) bereits &#8220;bereit&#8221;
+(sprich gerendert und Teil des Dokuments) ist. Dadurch, dass wir den
+<tt class="docutils literal"><span class="pre">&lt;script&gt;</span></tt>-Tag erst direkt vor dem schließenden <tt class="docutils literal"><span class="pre">&lt;/body&gt;</span></tt> notieren,
+stellen wir sicher, dass der Karten-Container zur Verfügung steht.</p>
+</div>
+<p>Schauen wir uns die wenigen Zeilen JavaScript genauer an, um zu verstehen, wie
+wir die Karte erzeugen. Unser Script erzeugt eine Instanz der Klasse <tt class="docutils literal"><span class="pre">ol.Map</span></tt>
+mit einigen Konfigurations-Optionen:</p>
+<div class="section" id="ol-map-konfigurationsoption-target">
+<h3>2.2.3.1. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">target</span></tt><a class="headerlink" href="#ol-map-konfigurationsoption-target" title="Permalink zu dieser Überschrift">¶</a></h3>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;map&#39;</span>
+</pre></div>
+</div>
+<p>Wir verwenden den Wert des <tt class="docutils literal"><span class="pre">id</span></tt>-Attributs unseres Karten-Containers um dem
+Map-Konstruktor mitzuteilen, in welches Element wir die Karte gerendert haben
+möchten. Wir verwenden also den String-Wert <tt class="docutils literal"><span class="pre">&quot;map&quot;</span></tt>. Diese Syntax ist
+eine bequeme Kurzform. Statt eines Strings kann auch eine Referenz zu dem
+Element angegeben werden (Solch eine Referenz kannn man etwa über
+<tt class="docutils literal"><span class="pre">document.getElementById(&quot;map&quot;)</span></tt> erhalten).</p>
+</div>
+<div class="section" id="ol-map-konfigurationsoption-renderer">
+<h3>2.2.3.2. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">renderer</span></tt><a class="headerlink" href="#ol-map-konfigurationsoption-renderer" title="Permalink zu dieser Überschrift">¶</a></h3>
+<p>Die Option <tt class="docutils literal"><span class="pre">renderer</span></tt> legt fest, welcher <em>Renderer</em> von ol3 verwendet werden
+soll. Derzeit gibt es drei verschiedene <tt class="docutils literal"><span class="pre">renderer</span></tt>-Typen:</p>
+<ul class="simple">
+<li>den DOM-Renderer,</li>
+<li>den Canvas-Renderer und</li>
+<li>den WebGL-Renderer.</li>
+</ul>
+<p>Wir verwenden den Canvas-Renderer. Da die Bilder des WMS von einer anderen
+Domain (also nicht <tt class="docutils literal"><span class="pre">localhost</span></tt>) kommen, können wir den WebGL-Renderer nicht
+verwenden; dies verbietet die <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Same_origin_policy_for_JavaScript">Same-Origin-Policy</a>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">renderer</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ol-map-konfigurationsoption-layers">
+<h3>2.2.3.3. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">layers</span></tt><a class="headerlink" href="#ol-map-konfigurationsoption-layers" title="Permalink zu dieser Überschrift">¶</a></h3>
+<p>Die <tt class="docutils literal"><span class="pre">layers</span></tt> Konfiguration erwartet eine Liste (als JavaScript-Array) aller
+Kartenthemen, die wir auf der Karte dargestellt haben wollen.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+  <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+    <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">TileWMS</span><span class="p">({</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://maps.opengeo.org/geowebcache/service/wms&#39;</span><span class="p">,</span>
+      <span class="nx">params</span><span class="o">:</span> <span class="p">{</span><span class="nx">LAYERS</span><span class="o">:</span> <span class="s1">&#39;bluemarble&#39;</span><span class="p">,</span> <span class="nx">VERSION</span><span class="o">:</span> <span class="s1">&#39;1.1.1&#39;</span><span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+<p>Auf die Syntax zur Erzeugung von Layern werden wir in den folgenden Kapiteln
+noch näher eingehen. Lassen Sie sich also nicht von der konkreten Syntax
+erschrecken.</p>
+<p>Um eine Karte sehen zu können, benötigen wir wenigstens einen Layer.</p>
+</div>
+<div class="section" id="ol-map-konfigurationsoption-view">
+<h3>2.2.3.4. <tt class="docutils literal"><span class="pre">ol.Map</span></tt>-Konfigurationsoption <tt class="docutils literal"><span class="pre">view</span></tt><a class="headerlink" href="#ol-map-konfigurationsoption-view" title="Permalink zu dieser Überschrift">¶</a></h3>
+<p>Als letztes wollen wir den <tt class="docutils literal"><span class="pre">view</span></tt> (etwa <em>Kartenausschnitt</em>) konfigurieren. Wir
+spezifizieren eine Projektion (<tt class="docutils literal"><span class="pre">projection</span></tt>), ein Kartenzentrum (<tt class="docutils literal"><span class="pre">center</span></tt>)
+und den initialen Zoomlevel (<tt class="docutils literal"><span class="pre">zoom</span></tt>). Außerdem legen wir eine
+<tt class="docutils literal"><span class="pre">maxResolution</span></tt> fest, so dass wir keine Kartenausschnitte anfordern, die von
+dem entfernten Dienst (in diesem Falle ein <em>GeoWebCache</em>) nicht geliefert werden
+können.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+   <span class="nx">projection</span><span class="o">:</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+   <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+   <span class="nx">zoom</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="nx">maxResolution</span><span class="o">:</span> <span class="mf">0.703125</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Herzlichen Glückwunsch: Sie haben soeben erfolgreich Ihre erste
+Kartenanwendung mit ol3 programmiert, seziert und analysiert!</p>
+<p>Um erfolgreich weiterarbeiten zu können, schauen wir uns
+<a class="reference internal" href="resources.html#config-resources"><em>weitere Ressourcen</em></a> an, die Sie als ol3-Entwickler
+benötigen werden.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="resources.html" title="2.3. Weitere ol3 Ressourcen"
+                 accesskey="N">weiter</a></li>
+            <li class="right" >
+              <a href="map.html" title="2.1. Eine Karte erstellen"
+                 accesskey="P">zurück</a> |</li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">2. Basiswissen (<cite>map</cite> &amp; <cite>view</cite>)</a> &raquo;</li>
+        <li><a href="#">2.2. Die Bestandteile der Karte</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>

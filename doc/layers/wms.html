@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.1. Web Map Service-Themen (WMS) &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="up" title="3. Themen &amp; Quellen (layer &amp; source)" href="index.html" />
+    <link rel="next" title="3.2. Vorberechnete Kacheln (tiles)" href="cached.html" />
+    <link rel="prev" title="3. Themen &amp; Quellen (layer &amp; source)" href="index.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3.1. <em>Web Map Service</em>-Themen (WMS)</a><ul>
+<li><a class="reference internal" href="#einen-wms-layer-erzeugen">3.1.1. Einen WMS-Layer erzeugen</a></li>
+<li><a class="reference internal" href="#der-ol-layer-tile-konstruktor">3.1.2. Der <tt class="docutils literal"><span class="pre">ol.layer.Tile</span></tt>-Konstruktor</a></li>
+<li><a class="reference internal" href="#der-ol-source-tilewms-konstruktor">3.1.3. Der <tt class="docutils literal"><span class="pre">ol.source.TileWMS</span></tt>-Konstruktor</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="index.html"
+                        title="vorheriges Kapitel">3. Themen &amp; Quellen (<cite>layer</cite> &amp; <cite>source</cite>)</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="cached.html"
+                        title="nächstes Kapitel">3.2. Vorberechnete Kacheln (<cite>tiles</cite>)</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="web-map-service-themen-wms">
+<span id="openlayers-layers-wms"></span><h1>3.1. <em>Web Map Service</em>-Themen (WMS)<a class="headerlink" href="#web-map-service-themen-wms" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Wenn Sie ein Thema (<tt class="docutils literal"><span class="pre">layer</span></tt>) Ihrer Karte hinzufügen, ist die Themenquelle
+(<tt class="docutils literal"><span class="pre">source</span></tt>) in der Regel für das Abrufen der angezeigt Daten verantwortlich.
+Die angeforderten Daten können entweder Raster- oder Vektordaten sein.
+Rasterdaten stellen wir uns hierbei als serverseitig erzeugtes Bild vor.
+Vektordaten werden als strukturierte Informationen vom Server ausgeliefert, und
+sie werden für die Anzeige erst auf dem Client (also in ihrem Browser)
+gerendert.</p>
+<p>Es gibt mannigfaltige Services, die Rasterdaten bereitstellen. In diesem
+Abschnitt werden wir uns mit denjenigen befassen, die Rasterdaten konform zur
+<abbr title="Open Geospatial Consortium, Inc.">OGC</abbr> <a class="reference external" href="http://www.opengeospatial.org/standards/wms">Web Map Service (WMS)</a>-Spezifikation liefern.</p>
+<div class="section" id="einen-wms-layer-erzeugen">
+<h2>3.1.1. Einen WMS-Layer erzeugen<a class="headerlink" href="#einen-wms-layer-erzeugen" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Wir werden nun zunächst wieder mit einem vollständigen Beispiel beginnen. Nach
+und nach werden wir die <tt class="docutils literal"><span class="pre">layer</span></tt> der Karte modifizieren, um ein Verständnis für
+die Funktionalität zu bekommen.</p>
+<p>Schauen wir uns folgenden Code an:</p>
+<div class="highlight-html" id="openlayers-layers-wms-example"><div class="highlight"><pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;ol3/ol.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+      <span class="nf">#map</span> <span class="p">{</span>
+        <span class="k">height</span><span class="o">:</span> <span class="m">256px</span><span class="p">;</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">512px</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;ol3/ol.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;title&gt;</span>OpenLayers 3 example<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>My Map<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+      <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;map&#39;</span><span class="p">,</span>
+        <span class="nx">renderer</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span><span class="p">,</span>
+        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+          <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Global Imagery&quot;</span><span class="p">,</span>
+            <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">TileWMS</span><span class="p">({</span>
+              <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://maps.opengeo.org/geowebcache/service/wms&#39;</span><span class="p">,</span>
+              <span class="nx">params</span><span class="o">:</span> <span class="p">{</span><span class="nx">LAYERS</span><span class="o">:</span> <span class="s1">&#39;bluemarble&#39;</span><span class="p">,</span> <span class="nx">VERSION</span><span class="o">:</span> <span class="s1">&#39;1.1.1&#39;</span><span class="p">}</span>
+            <span class="p">})</span>
+          <span class="p">})</span>
+        <span class="p">],</span>
+        <span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+          <span class="nx">projection</span><span class="o">:</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+          <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+          <span class="nx">zoom</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nx">maxResolution</span><span class="o">:</span> <span class="mf">0.703125</span>
+        <span class="p">})</span>
+      <span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p class="rubric">Übungen</p>
+<ol class="arabic">
+<li><p class="first">Falls noch nicht geschehen, speichern Sie obigen Text als <tt class="docutils literal"><span class="pre">map.html</span></tt> im
+Workshopverzeichnis.</p>
+</li>
+<li><p class="first">Testen Sie, ob die Karte wie erwartet funktioniert:</p>
+<p><a class="reference external" href="http://localhost/ol3-ws/ol3-training-master/map.html">http://localhost/ol3-ws/ol3-training-master/map.html</a></p>
+</li>
+</ol>
+</div>
+<div class="section" id="der-ol-layer-tile-konstruktor">
+<h2>3.1.2. Der <tt class="docutils literal"><span class="pre">ol.layer.Tile</span></tt>-Konstruktor<a class="headerlink" href="#der-ol-layer-tile-konstruktor" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Der <tt class="docutils literal"><span class="pre">ol.layer.Tile</span></tt>-Konstruktor wird mit einem Konfigurationsobjekt vom Typ
+<tt class="docutils literal"><span class="pre">olx.layer.TileOptions</span></tt> aufgerufen (vgl.
+<a class="reference external" href="http://ol3js.org/en/master/apidoc/olx.layer.html#TileOptions">http://ol3js.org/en/master/apidoc/olx.layer.html#TileOptions</a>). Im vorliegenden
+Fall ist der Wert des <tt class="docutils literal"><span class="pre">source</span></tt>-Schlüsselwortes eine Instanz der Klasse
+<tt class="docutils literal"><span class="pre">ol.source.TileWMS</span></tt>. Ein lesbarer Titel kann für den Layer mit der
+<tt class="docutils literal"><span class="pre">title</span></tt>-Option festgelegt werden.</p>
+<p>Im Gegensatz zu OpenLayers 2.x (wo die Aufgaben von <em>source</em> und <em>layer</em>
+gemeinsam von <tt class="docutils literal"><span class="pre">OpenLayers.Layer</span></tt>-Instanzen übernommen wurden), unterscheidet
+ol3 immer zwischen einem Thema (<tt class="docutils literal"><span class="pre">layer</span></tt>) und seiner Datenquelle (<cite>source</cite>).</p>
+<p>Die Klasse <tt class="docutils literal"><span class="pre">ol.layer.Tile</span></tt> repräsentiert ein reguläres Netz oder <em>Grid</em> von
+Bildern. Ein <em>einzelnes</em> Bild als Thema ist durch die Klasse
+<tt class="docutils literal"><span class="pre">ol.layer.Image</span></tt> abgebildet.</p>
+<p>Je nach Layertyp (<tt class="docutils literal"><span class="pre">...Tile</span></tt> oder <tt class="docutils literal"><span class="pre">...Image</span></tt>) sollte auch eine andere
+<tt class="docutils literal"><span class="pre">source</span></tt> verwendet werden: <tt class="docutils literal"><span class="pre">ol.source.TileWMS</span></tt> beziehungsweise
+<tt class="docutils literal"><span class="pre">ol.source.ImageWMS</span></tt>.</p>
+</div>
+<div class="section" id="der-ol-source-tilewms-konstruktor">
+<h2>3.1.3. Der <tt class="docutils literal"><span class="pre">ol.source.TileWMS</span></tt>-Konstruktor<a class="headerlink" href="#der-ol-source-tilewms-konstruktor" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Der <tt class="docutils literal"><span class="pre">ol.source.TileWMS</span></tt>-Konstruktor erwartet ein einzelnes Objekt als
+Argument. Die Struktur dieses Objektes ist unter
+<a class="reference external" href="http://ol3js.org/en/master/apidoc/olx.source.html#TileWMSOptions">http://ol3js.org/en/master/apidoc/olx.source.html#TileWMSOptions</a> aufgeführt.</p>
+<p>Der Schlüssel <tt class="docutils literal"><span class="pre">url</span></tt> enthält den Link auf die <em>Online Resource</em> des Dienstes
+und <tt class="docutils literal"><span class="pre">params</span></tt> ist ein Objektliteral mit Parameternamen als Schlüssel und
+Parameterwerten als Wert. Die default <tt class="docutils literal"><span class="pre">VERSION</span></tt> eines WMS ist in ol3
+<tt class="docutils literal"><span class="pre">1.3.0</span></tt>, falls Ihre Dienste diese Version nicht unterstützen, kann ein
+kleinerer Wert  (etwa <tt class="docutils literal"><span class="pre">1.1.1</span></tt>) über die <tt class="docutils literal"><span class="pre">params</span></tt> eingestellt werden.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+  <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Global Imagery&quot;</span><span class="p">,</span>
+    <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">TileWMS</span><span class="p">({</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://maps.opengeo.org/geowebcache/service/wms&#39;</span><span class="p">,</span>
+      <span class="nx">params</span><span class="o">:</span> <span class="p">{</span><span class="nx">LAYERS</span><span class="o">:</span> <span class="s1">&#39;bluemarble&#39;</span><span class="p">,</span> <span class="nx">VERSION</span><span class="o">:</span> <span class="s1">&#39;1.1.1&#39;</span><span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p class="rubric">Übungen</p>
+<ol class="arabic">
+<li><p class="first">Der oben verwende WMS stellt auch einen Layer namens <tt class="docutils literal"><span class="pre">&quot;openstreetmap&quot;</span></tt> zur
+Verfügung. Ändern Sie den <tt class="docutils literal"><span class="pre">ol.layer.Tile</span></tt>-Konstruktor so, dass jener Layer
+angefragt und angezeigt wird.</p>
+<p>Anschließend sollte Ihr Code etwa wie folgt aussehen</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Global Imagery&quot;</span><span class="p">,</span>
+  <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">TileWMS</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://maps.opengeo.org/geowebcache/service/wms&#39;</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+      <span class="c1">// hier ist die wesentliche Änderung</span>
+      <span class="nx">LAYERS</span><span class="o">:</span> <span class="s1">&#39;openstreetmap&#39;</span><span class="p">,</span>
+      <span class="nx">VERSION</span><span class="o">:</span> <span class="s1">&#39;1.1.1&#39;</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Ändern Sie den Code dahingehend ab, dass statt vieler einzelner Kacheln nur
+noch ein <strong>einzelnes</strong> Bild beim WMS angefragt wird. Die folgende Seiten aus
+der API-Dokumentation können hilfreich sein:
+<a class="reference external" href="http://ol3js.org/en/master/apidoc/ol.layer.Image.html">http://ol3js.org/en/master/apidoc/ol.layer.Image.html</a> und
+<a class="reference external" href="http://ol3js.org/en/master/apidoc/ol.source.ImageWMS.html">http://ol3js.org/en/master/apidoc/ol.source.ImageWMS.html</a>.
+Sie sollten die Adresse <tt class="docutils literal"><span class="pre">http://suite.opengeo.org/geoserver/wms</span></tt> und den
+Layernamen <tt class="docutils literal"><span class="pre">opengeo:countries</span></tt> verwenden.</p>
+</li>
+<li><p class="first">Überprüfen Sie mittels der <em>Developer Tools</em> des Browsers, ob tatsächlich
+nur noch <strong>ein</strong> Bild angefordert wird statt der 256x256 Pixel großen
+Kacheln.</p>
+</li>
+</ol>
+<div class="figure">
+<img alt="../_images/wms1.png" src="../_images/wms1.png" />
+<p class="caption">Eine Karte, die den Layer <tt class="docutils literal"><span class="pre">&quot;openstreetmap&quot;</span></tt> als <tt class="docutils literal"><span class="pre">&quot;image/png&quot;</span></tt> darstellt.</p>
+</div>
+<p>Nachdem wir erfolgreich mit dynamisch berechneten Bildern gearbeitet haben,
+wollen wir uns nun <a class="reference internal" href="cached.html#openlayers-layers-cached"><em>vorberechneten Kacheln</em></a>
+zuwenden.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="cached.html" title="3.2. Vorberechnete Kacheln (tiles)"
+                 accesskey="N">weiter</a></li>
+            <li class="right" >
+              <a href="index.html" title="3. Themen & Quellen (layer & source)"
+                 accesskey="P">zurück</a> |</li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">3. Themen &amp; Quellen (<cite>layer</cite> &amp; <cite>source</cite>)</a> &raquo;</li>
+        <li><a href="#">3.1. <em>Web Map Service</em>-Themen (WMS)</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>

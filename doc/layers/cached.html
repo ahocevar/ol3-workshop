@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.2. Vorberechnete Kacheln (tiles) &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="up" title="3. Themen &amp; Quellen (layer &amp; source)" href="index.html" />
+    <link rel="next" title="3.3. Proprietäre Raster Themen" href="proprietary.html" />
+    <link rel="prev" title="3.1. Web Map Service-Themen (WMS)" href="wms.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3.2. Vorberechnete Kacheln (<cite>tiles</cite>)</a><ul>
+<li><a class="reference internal" href="#die-klasse-ol-source-xyz">3.2.1. Die Klasse <tt class="docutils literal"><span class="pre">ol.source.XYZ</span></tt></a></li>
+<li><a class="reference internal" href="#die-klasse-ol-source-osm">3.2.2. Die Klasse <tt class="docutils literal"><span class="pre">ol.source.OSM</span></tt></a><ul>
+<li><a class="reference internal" href="#einige-details">3.2.2.1. Einige Details</a><ul>
+<li><a class="reference internal" href="#projektionen">3.2.2.1.1. Projektionen</a></li>
+<li><a class="reference internal" href="#koordinatentransformierung">3.2.2.1.2. Koordinatentransformierung</a></li>
+<li><a class="reference internal" href="#angepasste-karten-optionen">3.2.2.1.3. Angepasste Karten-Optionen</a></li>
+<li><a class="reference internal" href="#erzeugung-des-layers">3.2.2.1.4. Erzeugung des Layers</a></li>
+<li><a class="reference internal" href="#stil">3.2.2.1.5. Stil</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="wms.html"
+                        title="vorheriges Kapitel">3.1. <em>Web Map Service</em>-Themen (WMS)</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="proprietary.html"
+                        title="nächstes Kapitel">3.3. Proprietäre Raster Themen</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="vorberechnete-kacheln-tiles">
+<span id="openlayers-layers-cached"></span><h1>3.2. Vorberechnete Kacheln (<cite>tiles</cite>)<a class="headerlink" href="#vorberechnete-kacheln-tiles" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Standardmäßig fragt der <tt class="docutils literal"><span class="pre">Tile</span></tt>-Layer Bilder in 256 x 256 Pixel Größe an, um
+den Kartenviewport (und einen kleinen Bereich darüber hinaus) zu füllen. Während
+die Karte verschoben oder gezoomt wird, gehen weitere Anfragen in eben dieser
+Größe an den Server, um jeweils den aktuellen Bereich auszufüllen. Einige Bilder
+wird der Browser lokal vorhalten (<em>cachen</em>) trotzdem ist der
+Prozessierungsaufwand auf dem Server unter Umständen hoch, da die Bilder
+dynamisch berechnet werden.</p>
+<p>Da die letztlich generierten Anfragen in einem regulären Grid deterministisch
+sind, kann ein Server die Anfragen ggf. vorberechnen und bei einer Anfrage nur
+ein hoffentlich bereits bestehendes Bild ausliefern. Üblicherweise führt dies zu
+einer Performancesteigerung sowohl auf der Client- als auch auf der Serverseite.</p>
+<div class="section" id="die-klasse-ol-source-xyz">
+<span id="openlayers-layers-cached-xyz"></span><h2>3.2.1. Die Klasse <tt class="docutils literal"><span class="pre">ol.source.XYZ</span></tt><a class="headerlink" href="#die-klasse-ol-source-xyz" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Die <em>Web Map Service</em>-Spezifikation räumt anfragenden Clients eine große
+Freiheit ein, die letztlich in unendlich vielen verschiedenen Requests münden.
+Ohne weitere Einschränkungen ist es in der Praxis daher sehr schwierig (wenn
+nicht unmöglich), diese Anfragen zu <em>cachen</em>.</p>
+<p>Das gegenteilige Extrem stellt ein Service dar, der ausschließlich eine fixe
+Anzahl an Zoomstufen unterstützt, und in jenen auch nur solche, die in ein
+gewisses Grid passen. Solche Dienste lassen sich in einer XYZ-Quelle
+generalisiseren; <cite>X</cite> und <cite>Y</cite> repräsentieren dann Spalten und Zeilen in jenem
+Grid und <cite>Z</cite> steht für die Zoomstufe.</p>
+</div>
+<div class="section" id="die-klasse-ol-source-osm">
+<span id="openlayers-layers-cached-osm"></span><h2>3.2.2. Die Klasse <tt class="docutils literal"><span class="pre">ol.source.OSM</span></tt><a class="headerlink" href="#die-klasse-ol-source-osm" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Das <a class="reference external" href="http://www.openstreetmap.org/">OpenStreetMap (OSM)</a>-Projekt stellt
+vielfaltige &amp; weltweite Geodaten frei zur Verfügung, die von Freiwilligen
+gesammelt und erhoben wurden. OSM stellt verschiedene gerenderte Kachel-Sets
+dieser Daten zur Verfügung. Da jene Kacheln analog zum
+<a class="reference internal" href="#openlayers-layers-cached-xyz"><em>XYZ-Grid</em></a> organisiert sind, kann man sie
+in ol3 nutzen. Die Klasse <tt class="docutils literal"><span class="pre">ol.source.OSM</span></tt> greift auf diese <em>tiles</em> zu.</p>
+<p class="rubric" id="openlayers-layers-cached-example">Übungen</p>
+<ol class="arabic">
+<li><p class="first">Öffen Sie die Datei <tt class="docutils literal"><span class="pre">map.html</span></tt> vom
+<a class="reference internal" href="wms.html#openlayers-layers-wms"><em>vorherigen Abschnitt</em></a> in einem Texteditor und
+ändern Sie die Karten-Initialisierung wie folgt:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script&gt;</span>
+  <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span>
+    <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;map&#39;</span><span class="p">,</span>
+    <span class="nx">renderer</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span><span class="p">,</span>
+    <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+      <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+        <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">OSM</span><span class="p">()</span>
+      <span class="p">})</span>
+    <span class="p">],</span>
+    <span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+      <span class="nx">center</span><span class="o">:</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">proj</span><span class="p">.</span><span class="nx">transform</span><span class="p">([</span><span class="o">-</span><span class="mf">93.27</span><span class="p">,</span> <span class="mf">44.98</span><span class="p">],</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span> <span class="s1">&#39;EPSG:3857&#39;</span><span class="p">),</span>
+      <span class="nx">zoom</span><span class="o">:</span> <span class="mi">9</span>
+    <span class="p">})</span>
+  <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Im <tt class="docutils literal"><span class="pre">&lt;head&gt;</span></tt> Bereich des Dokumentes fügen Sie bitte einige
+CSS-Deklarationen für die Copyright-Angaben (<em>attribution</em>) von ol3 hinzu.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;style&gt;</span>
+    <span class="nf">#map</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">512px</span><span class="p">;</span>
+        <span class="k">height</span><span class="o">:</span> <span class="m">256px</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nc">.ol-attribution</span> <span class="nt">ul</span><span class="o">,</span>
+    <span class="nc">.ol-attribution</span> <span class="nt">a</span><span class="o">,</span>
+    <span class="nc">.ol-attribution</span> <span class="nt">a</span><span class="nd">:not</span><span class="o">([</span><span class="nt">ie8andbelow</span><span class="o">])</span> <span class="p">{</span>
+        <span class="k">color</span><span class="o">:</span> <span class="nb">black</span> <span class="cp">!important</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+neu: <a class="reference external" href="http://localhost/ol3-ws/ol3-training-master/map.html">http://localhost/ol3-ws/ol3-training-master/map.html</a></p>
+</li>
+</ol>
+<div class="figure">
+<img alt="../_images/cached1.png" src="../_images/cached1.png" />
+<p class="caption">Eine Karte, die einen gekachelten Layer aus der OpenStreetMap Quelle
+darstellt.</p>
+</div>
+<div class="section" id="einige-details">
+<h3>3.2.2.1. Einige Details<a class="headerlink" href="#einige-details" title="Permalink zu dieser Überschrift">¶</a></h3>
+<div class="section" id="projektionen">
+<h4>3.2.2.1.1. Projektionen<a class="headerlink" href="#projektionen" title="Permalink zu dieser Überschrift">¶</a></h4>
+<p>Schauen wir uns die <tt class="docutils literal"><span class="pre">view</span></tt>-Definition genauer an:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+  <span class="nx">center</span><span class="o">:</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">proj</span><span class="p">.</span><span class="nx">transform</span><span class="p">([</span><span class="o">-</span><span class="mf">93.27</span><span class="p">,</span> <span class="mf">44.98</span><span class="p">],</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span> <span class="s1">&#39;EPSG:3857&#39;</span><span class="p">),</span>
+  <span class="nx">zoom</span><span class="o">:</span> <span class="mi">9</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Räumliche Daten können in verschiedenen räumlichen Koordinatensystemen
+vorliegen. Während ein Datensatz zum Beispiel geographische Koordinaten
+(Längen- und Breitengrade) verwendet, kann ein anderer Datensatz in lokaler
+metrischer Projektion vorliegen. Eine vollständige Diskussion von
+Koordinatenbezugssystemen liegt sicherlich außerhalb des Fokus dieses Workshops,
+aber es ist wichtig, das wesentliche Konzept zu verstehen.</p>
+<p>ol3 muss das Koordinatensystem Ihrer Daten kennen. Intern werden Projektionen
+von der Klasse <tt class="docutils literal"><span class="pre">ol.proj.Projection</span></tt> abgebildet. Die <tt class="docutils literal"><span class="pre">transform</span></tt> Funktion
+im <tt class="docutils literal"><span class="pre">ol.proj</span></tt> Namensraum akzeptiert Auch <em>Strings</em> die das Koordinatensystem
+repräsentieren (oben sind dies <tt class="docutils literal"><span class="pre">&quot;EPSG:4326&quot;</span></tt> und <tt class="docutils literal"><span class="pre">&quot;EPSG:3857&quot;</span></tt>).</p>
+</div>
+<div class="section" id="koordinatentransformierung">
+<h4>3.2.2.1.2. Koordinatentransformierung<a class="headerlink" href="#koordinatentransformierung" title="Permalink zu dieser Überschrift">¶</a></h4>
+<p>Die OpenStreetMap Kacheln, die wir verwenden, liegen in einer Merkator
+Projektion vor. Wir müssen daher auch das Kartenzentrum in Merkator-Koordinaten
+angeben. Da es relativ einfach ist, geographischen Koordinaten zu einem gewissen
+Ort auf der Welt zu bekommen, nutzen wir <tt class="docutils literal"><span class="pre">ol.proj.transform</span></tt> um geographische
+Koordinaten (<tt class="docutils literal"><span class="pre">&quot;EPSG:4326&quot;</span></tt>) in Merkator Koordinaten (<tt class="docutils literal"><span class="pre">&quot;EPSG:3857&quot;</span></tt>)
+umzuwandeln.</p>
+</div>
+<div class="section" id="angepasste-karten-optionen">
+<h4>3.2.2.1.3. Angepasste Karten-Optionen<a class="headerlink" href="#angepasste-karten-optionen" title="Permalink zu dieser Überschrift">¶</a></h4>
+<div class="admonition note">
+<p class="first admonition-title">Bemerkung</p>
+<p class="last">Die Projektionen, die wir bislang verwendet haben, sind die einzigen, die
+ol3 per default kennt. Für andere Projektionen müssen wir etwas mehr Aufwand
+betreiben.</p>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">projection</span> <span class="o">=</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">proj</span><span class="p">.</span><span class="nx">configureProj4jsProjection</span><span class="p">({</span>
+  <span class="nx">code</span><span class="o">:</span> <span class="s1">&#39;EPSG:21781&#39;</span><span class="p">,</span>
+  <span class="nx">extent</span><span class="o">:</span> <span class="p">[</span><span class="mf">485869.5728</span><span class="p">,</span> <span class="mf">76443.1884</span><span class="p">,</span> <span class="mf">837076.5648</span><span class="p">,</span> <span class="mf">299941.7864</span><span class="p">]</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Des weiteren benötigen wir zwei zusätzliche <tt class="docutils literal"><span class="pre">&lt;script&gt;</span></tt>-Tags:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span>
+  <span class="na">src=</span><span class="s">&quot;http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/proj4js-compressed.js&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span>
+  <span class="na">src=</span><span class="s">&quot;http://cdnjs.cloudflare.com/ajax/libs/proj4js/1.1.0/defs/EPSG21781.js&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+</div>
+<p>Unter <a class="reference external" href="http://spatialreference.org/">http://spatialreference.org/</a> oder <a class="reference external" href="http://epsg.io/">http://epsg.io/</a> kann man die relevanten
+Informationen nachschauen, sofern der EPSG-Code bekannt ist.</p>
+</div>
+<div class="section" id="erzeugung-des-layers">
+<h4>3.2.2.1.4. Erzeugung des Layers<a class="headerlink" href="#erzeugung-des-layers" title="Permalink zu dieser Überschrift">¶</a></h4>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+  <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+    <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">OSM</span><span class="p">()</span>
+  <span class="p">})</span>
+<span class="p">],</span>
+</pre></div>
+</div>
+<p>Wie zuvor erzeugen wir einen Layer und fügen ihn der Karten-Konfiguration hinzu.
+Der Konstruktor <tt class="docutils literal"><span class="pre">ol.source.OSM()</span></tt> wird ohne Argument aufgerufen, daher gelten
+für diese Instanz die ol3-Defaults.</p>
+</div>
+<div class="section" id="stil">
+<h4>3.2.2.1.5. Stil<a class="headerlink" href="#stil" title="Permalink zu dieser Überschrift">¶</a></h4>
+<div class="highlight-html"><div class="highlight"><pre>.ol-attribution ul,
+.ol-attribution a,
+.ol-attribution a:not([ie8andbelow]) {
+  color: black;
+}
+</pre></div>
+</div>
+<p>Wie ol3-Controls zu handhaben sind, steht nicht im Fokus dieses Abschnitts. Als
+kleine Vorschau sei jedoch hier bereits erwähnt, dass standardmäßig jede
+<tt class="docutils literal"><span class="pre">ol.Map</span></tt> eine <tt class="docutils literal"><span class="pre">ol.control.Attribution</span></tt> Control hat, die etwa
+Copyright-Informationen zu den Kartenthemen darstellt.</p>
+<p>Obige CSS-Angaben ändern das Aussehen dieser Angaben, welche auf der Karte im
+unteren Bereich sichtbar sind.</p>
+<p>Nachdem wir erfolgreich öffentlich verfügbare gekachelte <em>TileSets</em> verwendet
+haben, schauen wir uns an, wie wir
+<a class="reference internal" href="proprietary.html#openlayers-layers-proprietary"><em>proprietäre Rasterthemen</em></a> einsetzen
+können.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="proprietary.html" title="3.3. Proprietäre Raster Themen"
+                 accesskey="N">weiter</a></li>
+            <li class="right" >
+              <a href="wms.html" title="3.1. Web Map Service-Themen (WMS)"
+                 accesskey="P">zurück</a> |</li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">3. Themen &amp; Quellen (<cite>layer</cite> &amp; <cite>source</cite>)</a> &raquo;</li>
+        <li><a href="#">3.2. Vorberechnete Kacheln (<cite>tiles</cite>)</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>

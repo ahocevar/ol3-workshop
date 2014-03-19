@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5.1. Mit Vektorlayern arbeiten &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="up" title="5. Styling von Vektorlayern" href="index.html" />
+    <link rel="next" title="5.2. Styling Grundlagen" href="style-intro.html" />
+    <link rel="prev" title="5. Styling von Vektorlayern" href="index.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5.1. Mit Vektorlayern arbeiten</a><ul>
+<li><a class="reference internal" href="#ol-format">5.1.1. <tt class="docutils literal"><span class="pre">ol.format</span></tt></a><ul>
+<li><a class="reference internal" href="#geojson-beispiel">5.1.1.1. GeoJSON-Beispiel</a></li>
+<li><a class="reference internal" href="#kml-beispiel">5.1.1.2. KML-Beispiel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="index.html"
+                        title="vorheriges Kapitel">5. Styling von Vektorlayern</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="style-intro.html"
+                        title="nächstes Kapitel">5.2. Styling Grundlagen</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mit-vektorlayern-arbeiten">
+<span id="openlayers-vector-basics"></span><h1>5.1. Mit Vektorlayern arbeiten<a class="headerlink" href="#mit-vektorlayern-arbeiten" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Mit <tt class="docutils literal"><span class="pre">ol.layer.Vector</span></tt> steht in ol3 ein durchaus recht komplexer Layertyp zur
+Verfügung. Standardmäßig werden beim Verwenden dieses Layers von ol3 keine
+Annahmen dazu gemacht, woher dieser Layer seine Daten bezieht, hierum kümmert
+sich die Klasse <tt class="docutils literal"><span class="pre">ol.source.Vector</span></tt>. Wie man Vektorlayer ausgestaltet,
+beschreibt <a class="reference internal" href="style-intro.html#openlayers-vector-style-intro"><em>einer der nächsten Abschnitte</em></a>.
+Hier werden wir uns eine zunächst einge Grundlagen zu Vektordaten erarbeiten.</p>
+<div class="section" id="ol-format">
+<span id="openlayers-vector-basics-format"></span><h2>5.1.1. <tt class="docutils literal"><span class="pre">ol.format</span></tt><a class="headerlink" href="#ol-format" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>In ol3 kümmern sich die <tt class="docutils literal"><span class="pre">ol.format</span></tt>-Klassen um das Parsen der von einem Server
+gelieferten Daten, die Features enthalten. Meist werden Sie jedoch nicht die
+<tt class="docutils literal"><span class="pre">ol.format</span></tt>-Klassen <strong>direkt</strong> verwenden, sondern eher spezialisierte
+<tt class="docutils literal"><span class="pre">source</span></tt>-Klassen (wie etwa <tt class="docutils literal"><span class="pre">ol.source.KML</span></tt>). Formate transformieren rohe
+Daten in echte <tt class="docutils literal"><span class="pre">ol.Feature</span></tt>-Objekte.</p>
+<p>Vergleichen Sie bitte die beiden Datenblöcke weiter unten. Beide repräsentieren
+das gleiche <tt class="docutils literal"><span class="pre">ol.Feature</span></tt>-Objekt (Es handelt sich um einen Punkt in Barcelona).
+Der erste Block stellt dieses Feature mittels GeoJSON dar (vgl.
+<tt class="docutils literal"><span class="pre">ol.format.GeoJSON</span></tt>). Der zweite Block dagegen enthält
+<abbr title="OGC Keyhole Markup Language">KML</abbr> (vgl. <tt class="docutils literal"><span class="pre">ol.format.KML</span></tt>)</p>
+<div class="section" id="geojson-beispiel">
+<h3>5.1.1.1. GeoJSON-Beispiel<a class="headerlink" href="#geojson-beispiel" title="Permalink zu dieser Überschrift">¶</a></h3>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;OpenLayers.Feature.Vector_107&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">-104.98</span><span class="p">,</span> <span class="mf">39.76</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kml-beispiel">
+<h3>5.1.1.2. KML-Beispiel<a class="headerlink" href="#kml-beispiel" title="Permalink zu dieser Überschrift">¶</a></h3>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;kml</span> <span class="na">xmlns=</span><span class="s">&quot;http://earth.google.com/kml/2.2&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Placemark&gt;</span>
+    <span class="nt">&lt;Point&gt;</span>
+      <span class="nt">&lt;coordinates&gt;</span>-104.98,39.76<span class="nt">&lt;/coordinates&gt;</span>
+    <span class="nt">&lt;/Point&gt;</span>
+  <span class="nt">&lt;/Placemark&gt;</span>
+<span class="nt">&lt;/kml&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="style-intro.html" title="5.2. Styling Grundlagen"
+                 accesskey="N">weiter</a></li>
+            <li class="right" >
+              <a href="index.html" title="5. Styling von Vektorlayern"
+                 accesskey="P">zurück</a> |</li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">5. Styling von Vektorlayern</a> &raquo;</li>
+        <li><a href="#">5.1. Mit Vektorlayern arbeiten</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>

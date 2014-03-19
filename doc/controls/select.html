@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4.2. Features selektieren &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="up" title="4. Benutzerinteraktion (control &amp; interaction)" href="index.html" />
+    <link rel="next" title="4.3. Features neuzeichnen" href="draw.html" />
+    <link rel="prev" title="4.1. Einen Maßstabsbalken einblenden" href="scaleline.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4.2. Features selektieren</a><ul>
+<li><a class="reference internal" href="#vektorlayer-und-select-interaktion-erzeugen">4.2.1. Vektorlayer und <tt class="docutils literal"><span class="pre">Select</span></tt>-Interaktion erzeugen</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="scaleline.html"
+                        title="vorheriges Kapitel">4.1. Einen Maßstabsbalken einblenden</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="draw.html"
+                        title="nächstes Kapitel">4.3. Features neuzeichnen</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="features-selektieren">
+<span id="openlayers-controls-select"></span><h1>4.2. Features selektieren<a class="headerlink" href="#features-selektieren" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>In den vorherigen Abschnitten zu Layern haben wir gelernt, das wir geographische
+Entitäten (<cite>Features</cite>) als Vektoren in ol3 laden und dynamisch auf die Karte
+zeichnen können. Einer der Vorteile von Vektordaten, ist die einfache
+Möglichkeit zur Interaktion mit jenen im Kartenclient. Wir wollen nun einen
+Vektorlayer erzeugen, in dem Benutzer Features selektieren können und
+Informationen zum ausgewählten Objekt erhalten.</p>
+<div class="section" id="vektorlayer-und-select-interaktion-erzeugen">
+<h2>4.2.1. Vektorlayer und <tt class="docutils literal"><span class="pre">Select</span></tt>-Interaktion erzeugen<a class="headerlink" href="#vektorlayer-und-select-interaktion-erzeugen" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p class="rubric">Übungen</p>
+<ol class="arabic">
+<li><p class="first">Wir beginnen mit dem lauffähigen Beispiel aus dem
+<a class="reference internal" href="../layers/vector.html#openlayers-layers-vector"><em>vorherigen Abschnitt</em></a>. Öffnen Sie die Datei
+<tt class="docutils literal"><span class="pre">map.html</span></tt> im Texteditor und stellen Sie sicher, dass der Inhalt etwa wie
+folgt aussieht.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;ol3/ol.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+    <span class="nf">#map</span> <span class="p">{</span>
+      <span class="k">height</span><span class="o">:</span> <span class="m">256px</span><span class="p">;</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">512px</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;ol3/ol.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;title&gt;</span>OpenLayers 3 example<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>My Map<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+      <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span>
+        <span class="nx">interactions</span><span class="o">:</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">interaction</span><span class="p">.</span><span class="nx">defaults</span><span class="p">().</span><span class="nx">extend</span><span class="p">([</span>
+          <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">interaction</span><span class="p">.</span><span class="nx">Select</span><span class="p">({</span>
+            <span class="nx">featureOverlay</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">FeatureOverlay</span><span class="p">({</span>
+              <span class="nx">style</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+                <span class="nx">image</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Circle</span><span class="p">({</span>
+                  <span class="nx">radius</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+                  <span class="nx">fill</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Fill</span><span class="p">({</span>
+                    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#FF0000&#39;</span>
+                  <span class="p">}),</span>
+                  <span class="nx">stroke</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Stroke</span><span class="p">({</span>
+                    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span>
+                  <span class="p">})</span>
+                <span class="p">})</span>
+              <span class="p">})</span>
+            <span class="p">})</span>
+          <span class="p">})</span>
+        <span class="p">]),</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;map&#39;</span><span class="p">,</span>
+        <span class="nx">renderer</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span><span class="p">,</span>
+        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+          <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Global Imagery&quot;</span><span class="p">,</span>
+            <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">TileWMS</span><span class="p">({</span>
+              <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://maps.opengeo.org/geowebcache/service/wms&#39;</span><span class="p">,</span>
+              <span class="nx">params</span><span class="o">:</span> <span class="p">{</span><span class="nx">LAYERS</span><span class="o">:</span> <span class="s1">&#39;bluemarble&#39;</span><span class="p">,</span> <span class="nx">VERSION</span><span class="o">:</span> <span class="s1">&#39;1.1.1&#39;</span><span class="p">}</span>
+            <span class="p">})</span>
+          <span class="p">}),</span>
+          <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Vector</span><span class="p">({</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Earthquakes&#39;</span><span class="p">,</span>
+            <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">({</span>
+              <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;data/layers/7day-M2.5.json&#39;</span>
+            <span class="p">}),</span>
+            <span class="nx">style</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+              <span class="nx">image</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Circle</span><span class="p">({</span>
+                <span class="nx">radius</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+                <span class="nx">fill</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Fill</span><span class="p">({</span>
+                  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#0000FF&#39;</span>
+                <span class="p">}),</span>
+                <span class="nx">stroke</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Stroke</span><span class="p">({</span>
+                  <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span>
+                <span class="p">})</span>
+              <span class="p">})</span>
+            <span class="p">})</span>
+          <span class="p">})</span>
+        <span class="p">],</span>
+        <span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+          <span class="nx">projection</span><span class="o">:</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+          <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+          <span class="nx">zoom</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="p">})</span>
+      <span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+neu: <a class="reference external" href="http://localhost/ol3-ws/ol3-training-master/map.html">http://localhost/ol3-ws/ol3-training-master/map.html</a></p>
+<p>Klicken Sie mit der linken Maustaste auf ein Feature um es zu selektieren.</p>
+<div class="figure">
+<img alt="../_images/select1.png" src="../_images/select1.png" />
+<p class="caption">Featureselektion mittels einer <tt class="docutils literal"><span class="pre">Select</span></tt>-Interaktion.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="draw.html" title="4.3. Features neuzeichnen"
+                 accesskey="N">weiter</a></li>
+            <li class="right" >
+              <a href="scaleline.html" title="4.1. Einen Maßstabsbalken einblenden"
+                 accesskey="P">zurück</a> |</li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">4. Benutzerinteraktion (<tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">control</span></tt> &amp; <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">interaction</span></tt>)</a> &raquo;</li>
+        <li><a href="#">4.2. Features selektieren</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>

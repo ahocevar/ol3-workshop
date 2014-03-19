@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5.3. Vektorlayer ausgestalten &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="up" title="5. Styling von Vektorlayern" href="index.html" />
+    <link rel="prev" title="5.2. Styling Grundlagen" href="style-intro.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="style-intro.html"
+                        title="vorheriges Kapitel">5.2. Styling Grundlagen</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="vektorlayer-ausgestalten">
+<span id="openlayers-style"></span><h1>5.3. Vektorlayer ausgestalten<a class="headerlink" href="#vektorlayer-ausgestalten" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p class="rubric">Übungen</p>
+<ol class="arabic">
+<li><p class="first">Wir beginnen mit einem lauffähigen Beispiel, welches Gebäudegrundrisse in
+einem Vektorlayer darstellt. Öffnen Sie die Datei <tt class="docutils literal"><span class="pre">map.html</span></tt> im Texteditor
+und fügen Sie den nachfolgenden Code ein:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;ol3/ol.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+    <span class="nf">#map</span> <span class="p">{</span>
+      <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+      <span class="k">height</span><span class="o">:</span> <span class="m">256px</span><span class="p">;</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">512px</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+    <span class="nt">&lt;title&gt;</span>OpenLayers 3 example<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;ol3/ol.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>My Map<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+      <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;map&#39;</span><span class="p">,</span>
+        <span class="nx">renderer</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span><span class="p">,</span>
+        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+          <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Vector</span><span class="p">({</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Buildings&#39;</span><span class="p">,</span>
+            <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">KML</span><span class="p">({</span>
+              <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;data/layers/buildings.kml&#39;</span>
+            <span class="p">}),</span>
+            <span class="nx">style</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+              <span class="nx">stroke</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Stroke</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">2</span><span class="p">})</span>
+            <span class="p">})</span>
+          <span class="p">})</span>
+        <span class="p">],</span>
+        <span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+          <span class="nx">projection</span><span class="o">:</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+          <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">122.791859392</span><span class="p">,</span> <span class="mf">42.3099154789</span><span class="p">],</span>
+          <span class="nx">zoom</span><span class="o">:</span> <span class="mi">16</span>
+        <span class="p">})</span>
+      <span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+neu: <a class="reference external" href="http://localhost/ol3-ws/ol3-training-master/map.html">http://localhost/ol3-ws/ol3-training-master/map.html</a></p>
+<p>Sie sollten rot umrandete Gebäudegrundrisse sehen.</p>
+</li>
+<li><p class="first">Nachdem uns <a class="reference internal" href="style-intro.html#openlayers-vector-style-intro"><em>Styling in ol3</em></a>, nicht
+mehr fremd ist, können wir eine Stylefunktion erzeugen, die je nach der
+Größe des Grundrisses die Features einfärbt. Ersetzen Sie die
+<tt class="docutils literal"><span class="pre">style</span></tt>-Konfigurationsoption des Layers mit folgenden Zeilen:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">style</span><span class="o">:</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">defaultStyle</span> <span class="o">=</span> <span class="p">[</span><span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+    <span class="nx">fill</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Fill</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;navy&#39;</span><span class="p">}),</span>
+    <span class="nx">stroke</span><span class="o">:</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Stroke</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">1</span><span class="p">})</span>
+  <span class="p">})];</span>
+  <span class="kd">var</span> <span class="nx">ruleStyle</span> <span class="o">=</span> <span class="p">[</span><span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+    <span class="nx">fill</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Fill</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;olive&#39;</span><span class="p">}),</span>
+    <span class="nx">stroke</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Stroke</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">1</span><span class="p">})</span>
+  <span class="p">})];</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">resolution</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">feature</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;shape_area&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3000</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">ruleStyle</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">defaultStyle</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">})()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+neu: <a class="reference external" href="http://localhost/ol3-ws/ol3-training-master/map.html">http://localhost/ol3-ws/ol3-training-master/map.html</a></p>
+<div class="figure">
+<img alt="../_images/style1.png" src="../_images/style1.png" />
+<p class="caption">Die Grundrisse werden nun nach Grundfläche ausgestaltet.</p>
+</div>
+</li>
+<li><p class="first">Schließlich wollen wir unsere Features nun noch mit einem textlichen <em>Label</em>
+versehen:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">style</span><span class="o">:</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">stroke</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Stroke</span><span class="p">({</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span>
+  <span class="p">});</span>
+  <span class="kd">var</span> <span class="nx">textStroke</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Stroke</span><span class="p">({</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#fff&#39;</span><span class="p">,</span>
+    <span class="nx">width</span><span class="o">:</span> <span class="mi">3</span>
+  <span class="p">});</span>
+  <span class="kd">var</span> <span class="nx">textFill</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Fill</span><span class="p">({</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#000&#39;</span>
+  <span class="p">});</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feature</span><span class="p">,</span> <span class="nx">resolution</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+      <span class="nx">stroke</span><span class="o">:</span> <span class="nx">stroke</span><span class="p">,</span>
+      <span class="nx">text</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Text</span><span class="p">({</span>
+        <span class="nx">font</span><span class="o">:</span> <span class="s1">&#39;12px Calibri,sans-serif&#39;</span><span class="p">,</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">),</span>
+        <span class="nx">fill</span><span class="o">:</span> <span class="nx">textFill</span><span class="p">,</span>
+        <span class="nx">stroke</span><span class="o">:</span> <span class="nx">textStroke</span>
+      <span class="p">})</span>
+    <span class="p">})];</span>
+  <span class="p">};</span>
+<span class="p">})()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Speichern Sie Ihre Änderungen und laden Sie die Seite im Browser
+neu: <a class="reference external" href="http://localhost/ol3-ws/ol3-training-master/map.html">http://localhost/ol3-ws/ol3-training-master/map.html</a></p>
+<div class="figure">
+<img alt="../_images/style2.png" src="../_images/style2.png" />
+<p class="caption">Die Gebäude werden nun auch mit einem <em>Label</em> gerendert.</p>
+</div>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="style-intro.html" title="5.2. Styling Grundlagen"
+                 accesskey="P">zurück</a></li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">5. Styling von Vektorlayern</a> &raquo;</li>
+        <li><a href="#">5.3. Vektorlayer ausgestalten</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.4. Vektorlayer &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="up" title="3. Themen &amp; Quellen (layer &amp; source)" href="index.html" />
+    <link rel="next" title="3.5. Statische Vektoren (ImageVector)" href="imagevector.html" />
+    <link rel="prev" title="3.3. Proprietäre Raster Themen" href="proprietary.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3.4. Vektorlayer</a><ul>
+<li><a class="reference internal" href="#vektorfeatures-gerendert-im-browser">3.4.1. Vektorfeatures gerendert im Browser</a><ul>
+<li><a class="reference internal" href="#details-des-beispiels">3.4.1.1. Details des Beispiels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="proprietary.html"
+                        title="vorheriges Kapitel">3.3. Proprietäre Raster Themen</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="imagevector.html"
+                        title="nächstes Kapitel">3.5. Statische Vektoren (<cite>ImageVector</cite>)</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="vektorlayer">
+<span id="openlayers-layers-vector"></span><h1>3.4. Vektorlayer<a class="headerlink" href="#vektorlayer" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Vektorlayer werden durch die Klasse <tt class="docutils literal"><span class="pre">ol.layer.Vector</span></tt> bereitgestellt. Dieser
+Layertyp kümmert sich um die Darstellung von Vektordaten auf der Client-Seite.</p>
+<p>Derzeit unterstützt in ol3 ausschließlich der <em>Canvas</em>-Renderer die Verwendung
+von <tt class="docutils literal"><span class="pre">ol.layer.Vector</span></tt>.</p>
+<div class="section" id="vektorfeatures-gerendert-im-browser">
+<h2>3.4.1. Vektorfeatures gerendert im Browser<a class="headerlink" href="#vektorfeatures-gerendert-im-browser" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Wir kehren zunächst mit unserer Karte zurück auf den Stand des ersten Beispiels
+(Ansicht der gesamten Welt). Hierauf wollen wir anschließend Vektoren
+darstellen.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;ol3/ol.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+      <span class="nf">#map</span> <span class="p">{</span>
+        <span class="k">height</span><span class="o">:</span> <span class="m">256px</span><span class="p">;</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">512px</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+    <span class="nt">&lt;title&gt;</span>OpenLayers 3 example<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;ol3/ol.js&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>My Map<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+      <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">Map</span><span class="p">({</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;map&#39;</span><span class="p">,</span>
+        <span class="nx">renderer</span><span class="o">:</span> <span class="s1">&#39;canvas&#39;</span><span class="p">,</span>
+        <span class="nx">layers</span><span class="o">:</span> <span class="p">[</span>
+          <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Tile</span><span class="p">({</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Global Imagery&quot;</span><span class="p">,</span>
+            <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">TileWMS</span><span class="p">({</span>
+              <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://maps.opengeo.org/geowebcache/service/wms&#39;</span><span class="p">,</span>
+              <span class="nx">params</span><span class="o">:</span> <span class="p">{</span><span class="nx">LAYERS</span><span class="o">:</span> <span class="s1">&#39;bluemarble&#39;</span><span class="p">,</span> <span class="nx">VERSION</span><span class="o">:</span> <span class="s1">&#39;1.1.1&#39;</span><span class="p">}</span>
+            <span class="p">})</span>
+          <span class="p">})</span>
+        <span class="p">],</span>
+        <span class="nx">view</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">View2D</span><span class="p">({</span>
+          <span class="nx">projection</span><span class="o">:</span> <span class="s1">&#39;EPSG:4326&#39;</span><span class="p">,</span>
+          <span class="nx">center</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+          <span class="nx">zoom</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nx">maxResolution</span><span class="o">:</span> <span class="mf">0.703125</span>
+        <span class="p">})</span>
+      <span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p class="rubric">Übungen</p>
+<ol class="arabic">
+<li><p class="first">Öffnen Sie die Datei <tt class="docutils literal"><span class="pre">map.html</span></tt> in einem Texteditor und fügen Sie obigen
+Code ein.</p>
+</li>
+<li><p class="first">Speichern Sie ihre Änderungen in der Datei <tt class="docutils literal"><span class="pre">map.html</span></tt> und testen Sie das
+Ergebnis im Browser: <a class="reference external" href="http://localhost/ol3-ws/ol3-training-master/map.html">http://localhost/ol3-ws/ol3-training-master/map.html</a></p>
+</li>
+<li><p class="first">Im Initialisierungscode der Karte fügen Sie bitte nach dem <tt class="docutils literal"><span class="pre">Tile</span></tt>-Layer
+einen weiteren Layer hinzu. Kopieren Sie am einfachsten hierzu die folgenden
+Zeilen, die einen Vektorlayer definieren, der seine Daten aus einer lokalen
+GeoJSON-Datei bezieht:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Vector</span><span class="p">({</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Earthquakes&#39;</span><span class="p">,</span>
+  <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;data/layers/7day-M2.5.json&#39;</span>
+  <span class="p">}),</span>
+  <span class="nx">style</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+    <span class="nx">image</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Circle</span><span class="p">({</span>
+      <span class="nx">radius</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nx">fill</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Fill</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">})</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="figure">
+<img alt="../_images/vector1.png" src="../_images/vector1.png" />
+<p class="caption">Eine Weltkarte mit weißen Punkten, die Erdbeben repräsentieren.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Bemerkung</p>
+<p class="last">Da die Daten in der GeoJSON-Datei in <tt class="docutils literal"><span class="pre">EPSG:4326</span></tt> vorliegen, und der
+<tt class="docutils literal"><span class="pre">view</span></tt> der Karte auch diese Projektion verwendet, müssen wir die Daten
+nicht reprojizieren. Falls die Datenprojektion nicht übereinstimmt, kann
+man bei der Konstruktion der <tt class="docutils literal"><span class="pre">source</span></tt> einen <tt class="docutils literal"><span class="pre">projection</span></tt>-Key im
+Konfigurationsobjekt übergeben.</p>
+</div>
+<div class="section" id="details-des-beispiels">
+<h3>3.4.1.1. Details des Beispiels<a class="headerlink" href="#details-des-beispiels" title="Permalink zu dieser Überschrift">¶</a></h3>
+<p>Wir schauen uns nun die Erzeugung des Vektorlayers im Detail an um zu verstehen,
+was im Beispiel passiert.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">layer</span><span class="p">.</span><span class="nx">Vector</span><span class="p">({</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Earthquakes&#39;</span><span class="p">,</span>
+  <span class="nx">source</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;data/layers/7day-M2.5.json&#39;</span>
+  <span class="p">}),</span>
+  <span class="nx">style</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Style</span><span class="p">({</span>
+    <span class="nx">image</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Circle</span><span class="p">({</span>
+      <span class="nx">radius</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nx">fill</span><span class="o">:</span> <span class="k">new</span> <span class="nx">ol</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">Fill</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">})</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Der Layer wird mit dem Titel (<tt class="docutils literal"><span class="pre">title</span></tt>) <em>Earthquakes</em> und einigen weiteren
+Optionen initialisisert. Insbesondere von Relevanz ist der <tt class="docutils literal"><span class="pre">source</span></tt>-Schlüssel,
+welchem wir eine Instanz von <tt class="docutils literal"><span class="pre">ol.source.GeoJSON</span></tt> zuweisen. Diese
+<tt class="docutils literal"><span class="pre">source</span></tt> verweist auf die URL zur GeoJSON-Datei.</p>
+<div class="admonition note">
+<p class="first admonition-title">Bemerkung</p>
+<p class="last">Wollten wir die Features des Layers attributiv ausgestalten, so könnten wir
+statt einer Instanz von <tt class="docutils literal"><span class="pre">ol.style.Style</span></tt> auch eine Stylefunktion
+übergeben.</p>
+</div>
+<p class="rubric">Zusatzaufgaben</p>
+<ol class="arabic simple">
+<li>Jeder weiße Kreis repräsentiert ein <tt class="docutils literal"><span class="pre">ol.Feature</span></tt> Objekt des
+<tt class="docutils literal"><span class="pre">ol.layer.Vector</span></tt>, und jedes Feature hat die Attribute <tt class="docutils literal"><span class="pre">summary</span></tt> &amp;
+<tt class="docutils literal"><span class="pre">title</span></tt>. Registrieren Sie eine Funktion, die bei jedem
+<tt class="docutils literal"><span class="pre">singleclick</span></tt>-Event, welcher auf der <tt class="docutils literal"><span class="pre">ol.Map</span></tt> gefeuert wird, die
+Funktion <tt class="docutils literal"><span class="pre">forEachFeatureAtPixel</span></tt> der <tt class="docutils literal"><span class="pre">map</span></tt> aufruft und gegebenenfalls
+weitere Erdbebeninformationen ausgibt.</li>
+<li>Die hier verwendeten Daten entstammen der Seite
+<a class="reference external" href="http://earthquake.usgs.gov/earthquakes/catalogs/">http://earthquake.usgs.gov/earthquakes/catalogs/</a> des USGS. Recherchieren Sie
+dort, ob Sie weitere Geodaten in einem von ol3 unterstützten Format finden
+und versuchen Sie, jene in <tt class="docutils literal"><span class="pre">map.html</span></tt> zu integrieren.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="imagevector.html" title="3.5. Statische Vektoren (ImageVector)"
+                 accesskey="N">weiter</a></li>
+            <li class="right" >
+              <a href="proprietary.html" title="3.3. Proprietäre Raster Themen"
+                 accesskey="P">zurück</a> |</li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">3. Themen &amp; Quellen (<cite>layer</cite> &amp; <cite>source</cite>)</a> &raquo;</li>
+        <li><a href="#">3.4. Vektorlayer</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>

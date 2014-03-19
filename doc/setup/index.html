@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. Vorarbeiten &amp; Umgebung &mdash; OpenLayers 3 (ol3) Workshop</title>
+    
+    <link rel="stylesheet" href="../_static/terrestris.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0.beta2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="OpenLayers 3 (ol3) Workshop" href="../index.html" />
+    <link rel="next" title="2. Basiswissen (map &amp; view)" href="../basics/index.html" />
+    <link rel="prev" title="FOSSGIS 2014: OpenLayers 3 Workshop" href="../index.html" />
+    
+
+  </head>
+  <body>
+    <div class="header">
+        <div class="wrap">
+            <h1 class="logo">
+                <a href="http://www.terrestris.de/" target="_blank">
+                    <img
+                      src="../_static/img/logo_terrestris.png"
+                      alt="terrestris GmbH &amp; Co. KG" />
+                </a>
+            </h1>
+            <h1 class="logo">
+                <a href="http://www.boundlessgeo.com/" target="_blank">
+                    <img
+                      src="../_static/img/boundless-logo.png"
+                      alt="Boundless" />
+                </a>
+            </h1>
+            <h2 class="docstitle"><a href="../index.html">OpenLayers 3 (ol3) Workshop</a></h2>
+        </div>
+    </div>
+
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1. Vorarbeiten &amp; Umgebung</a><ul>
+<li><a class="reference internal" href="#osgeo-live-7-0">1.1. OSGeo-Live 7.0</a></li>
+<li><a class="reference internal" href="#ol3-bibliothek-und-demodaten">1.2. ol3-Bibliothek und Demodaten</a></li>
+<li><a class="reference internal" href="#deutsche-tastaturbelegung">1.3. Deutsche Tastaturbelegung</a></li>
+<li><a class="reference internal" href="#alles-erledigt">1.4. Alles erledigt?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="../index.html"
+                        title="vorheriges Kapitel">FOSSGIS 2014: OpenLayers 3 Workshop</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../basics/index.html"
+                        title="nächstes Kapitel">2. Basiswissen (<cite>map</cite> &amp; <cite>view</cite>)</a></p>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="vorarbeiten-umgebung">
+<span id="setup"></span><h1>1. Vorarbeiten &amp; Umgebung<a class="headerlink" href="#vorarbeiten-umgebung" title="Permalink zu dieser Überschrift">¶</a></h1>
+<div class="section" id="osgeo-live-7-0">
+<h2>1.1. OSGeo-Live 7.0<a class="headerlink" href="#osgeo-live-7-0" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Die Schulung während der FOSSGIS findet auf der OSGeo-Live-Linux-Distribution
+statt, die unter anderem einen Apache-Webserver mitbringt.</p>
+<p>Wir werden uns ein Verzeichnis erzeugen, in welchem wir später die Workshopdaten
+einfügen und in dem Sie Ihre HTML-Seiten abspeichern können.</p>
+<p>Öffnen Sie ein Terminal um Shell-Befehle auf dem Live-System auszuführen:</p>
+<p>&#8220;Applications - Accessoires - Terminal Emulation&#8221;</p>
+<div class="figure">
+<img alt="../_images/terminal-application.png" src="../_images/terminal-application.png" />
+<p class="caption">Öffnen des Terminals</p>
+</div>
+<p>Geben Sie im Terminal zunächst folgenden Befehl ein:</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>sudo mkdir -p /var/www/ol3-ws
+</pre></div>
+</div>
+</div></blockquote>
+<p>Das anschließend geforderte <tt class="docutils literal"><span class="pre">sudo</span></tt> Passwort des Benutzers <tt class="docutils literal"><span class="pre">user</span></tt> ist
+<tt class="docutils literal"><span class="pre">user</span></tt>.</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>sudo chown user:user /var/www/ol3-ws
+</pre></div>
+</div>
+</div></blockquote>
+<p>Wir versuchen nun, dort eine HTML-Datei anzulegen, und mit einem Browser zu
+öffnen:</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">echo</span> <span class="s2">&quot;HALLO FOSSGIS&quot;</span> &gt; /var/www/ol3-ws/index.html
+</pre></div>
+</div>
+</div></blockquote>
+<p>Wenn alles geklappt hat, sollte ein Aufruf der folgenden URL sollte eine
+entsprechende Begrüßung anzeigen:</p>
+<p><a class="reference external" href="http://localhost/ol3-ws/index.html">http://localhost/ol3-ws/index.html</a></p>
+<div class="figure">
+<img alt="../_images/hallo-fossgis.png" src="../_images/hallo-fossgis.png" />
+<p class="caption">Hallo FOSSGIS.</p>
+</div>
+</div>
+<div class="section" id="ol3-bibliothek-und-demodaten">
+<h2>1.2. ol3-Bibliothek und Demodaten<a class="headerlink" href="#ol3-bibliothek-und-demodaten" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Als nächstes werden wir uns die ol3-Bibliothek und die benötigten Workshop-Daten
+besorgen. Wechseln Sie zunächst in das oben angelegte Verzeichnis:</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre><span class="nb">cd</span> /var/www/ol3-ws/
+</pre></div>
+</div>
+</div></blockquote>
+<p>Anschließend laden Sie bitte die Datei master.zip herunter und entpacken Sie das
+zip-Archiv in dem aktuellen Verzeichnis:</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>wget <span class="s2">&quot;https://github.com/bartvde/ol3-training/archive/master.zip&quot;</span>
+unzip master.zip
+</pre></div>
+</div>
+</div></blockquote>
+<p>Es sollte sich nunmehr ein neues Verzeichnis <tt class="docutils literal"><span class="pre">ol3-training-master/</span></tt> im
+aktuellen Verzeichnis befinden. Alle Beispiele, die Sie im Rahmen dieses
+Workshops erstellen, sollten sich innerhalb dieses Ordners befinden.</p>
+</div>
+<div class="section" id="deutsche-tastaturbelegung">
+<h2>1.3. Deutsche Tastaturbelegung<a class="headerlink" href="#deutsche-tastaturbelegung" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Falls Ihre OSGeo-Live-Linux-Distribution ein amerikanisches Tastaturlayout
+hat, können Sie dieses mittels des Befehls</p>
+<blockquote>
+<div><div class="highlight-sh"><div class="highlight"><pre>setxkbmap de
+</pre></div>
+</div>
+</div></blockquote>
+<p>in einem Terminal (s.o.) auf ein deutsches Tastaturlayout umstellen.</p>
+</div>
+<div class="section" id="alles-erledigt">
+<h2>1.4. Alles erledigt?<a class="headerlink" href="#alles-erledigt" title="Permalink zu dieser Überschrift">¶</a></h2>
+<p>Gut, dann können wir nun mit <a class="reference internal" href="../basics/index.html"><em>Basiswissen (map &amp; view)</em></a> weitermachen.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+            <li class="right" style="margin-right: 10px">
+              <a href="../basics/index.html" title="2. Basiswissen (map & view)"
+                 accesskey="N">weiter</a></li>
+            <li class="right" >
+              <a href="../index.html" title="FOSSGIS 2014: OpenLayers 3 Workshop"
+                 accesskey="P">zurück</a> |</li>
+        <li><a href="../index.html">OpenLayers 3 (ol3) Workshop</a> &raquo;</li>
+        <li><a href="#">1. Vorarbeiten &amp; Umgebung</a></li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2014, Boundless &amp; terrestris, A. Hocevar, B. van den Eijnden, M. Jansen &amp; D. Koch.
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+            <img alt="Creative Commons License"
+              style="border-width:0;vertical-align:text-bottom;"
+              src="../_static/img/cc-by-sa.png" />
+        </a>
+    </div>
+  </body>
+</html>
