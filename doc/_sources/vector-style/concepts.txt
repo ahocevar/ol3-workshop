@@ -32,7 +32,7 @@ Der erste Block stellt dieses Feature mittels GeoJSON dar (vgl.
 GeoJSON-Beispiel
 ````````````````
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
         "type": "Feature",

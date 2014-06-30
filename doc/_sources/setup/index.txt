@@ -3,87 +3,28 @@
 Vorarbeiten & Umgebung
 ======================
 
-OSGeo-Live 7.0
---------------
+Mongoose
+--------
 
-Die Schulung während der FOSSGIS findet auf der OSGeo-Live-Linux-Distribution
-statt, die unter anderem einen Apache-Webserver mitbringt.
+OpenLayers 3 läuft am besten über das HTTP Protokoll. Deshalb verwenden wir
+Mongoose, einen einfachen HTTP Server. Dazu laden wir von
+http://cesanta.com/mongoose.shtml die Free Edition von Mongoose herunter.
 
-Wir werden uns ein Verzeichnis erzeugen, in welchem wir später die Workshopdaten
-einfügen und in dem Sie Ihre HTML-Seiten abspeichern können.
+Außerdem werden wir uns ein Verzeichnis erzeugen, in welchem wir später die Workshopdaten einfügen und in dem Sie Ihre HTML-Seiten abspeichern können. Dazu
+folgen wir den Anweisungen auf http://cesanta.com/docs/BasicWebsite.shtml.
 
-Öffnen Sie ein Terminal um Shell-Befehle auf dem Live-System auszuführen:
+.. note::
 
-"Applications - Accessoires - Terminal Emulation"
-
-.. figure:: terminal-application.png
-   
-    Öffnen des Terminals
-
-Geben Sie im Terminal zunächst folgenden Befehl ein:
-
-    .. code-block:: sh
-
-        sudo mkdir -p /var/www/ol3-ws
-
-Das anschließend geforderte ``sudo`` Passwort des Benutzers ``user`` ist
-``user``.
-
-    .. code-block:: sh
-
-        sudo chown user:user /var/www/ol3-ws
-
-Wir versuchen nun, dort eine HTML-Datei anzulegen, und mit einem Browser zu
-öffnen:
-
-    .. code-block:: sh
-
-        echo "HALLO FOSSGIS" > /var/www/ol3-ws/index.html
-
-Wenn alles geklappt hat, sollte ein Aufruf der folgenden URL sollte eine
-entsprechende Begrüßung anzeigen:
-
-http://localhost/ol3-ws/index.html
-
-.. figure:: hallo-fossgis.png
-   
-    Hallo FOSSGIS.
+    Falls auf ``C:\`` kein Schreibzugriff möglich ist, legen Sie das
+    ``my_website`` Verzeichnis am Desktop an.
 
 
 ol3-Bibliothek und Demodaten
 ----------------------------
 
 Als nächstes werden wir uns die ol3-Bibliothek und die benötigten Workshop-Daten
-besorgen. Wechseln Sie zunächst in das oben angelegte Verzeichnis:
-
-    .. code-block:: sh
-
-        cd /var/www/ol3-ws/
-
-Anschließend laden Sie bitte die Datei master.zip herunter und entpacken Sie das
-zip-Archiv in dem aktuellen Verzeichnis:
-
-    .. code-block:: sh
-
-        wget "https://github.com/bartvde/ol3-training/archive/master.zip"
-        unzip master.zip
-
-Es sollte sich nunmehr ein neues Verzeichnis ``ol3-training-master/`` im
-aktuellen Verzeichnis befinden. Alle Beispiele, die Sie im Rahmen dieses
-Workshops erstellen, sollten sich innerhalb dieses Ordners befinden.
-
-
-Deutsche Tastaturbelegung
--------------------------
-
-Falls Ihre OSGeo-Live-Linux-Distribution ein amerikanisches Tastaturlayout
-hat, können Sie dieses mittels des Befehls
-
-    .. code-block:: sh
-
-        setxkbmap de
-
-in einem Terminal (s.o.) auf ein deutsches Tastaturlayout umstellen.
+besorgen. Laden Sie dazu die ZIP-Datei von https://github.com/bartvde/ol3-training/archive/master.zip herunter, und
+entpacken Sie sie im zuvor angelegten ``my_website`` Verzeichis.
 
 
 Alles erledigt?
