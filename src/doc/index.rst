@@ -1,8 +1,7 @@
-FOSSGIS 2014: OpenLayers 3 Workshop
-===================================
+OpenLayers 3 Workshop
+=====================
 
-Herzlich Willkommen beim **OpenLayers 3 Workshop** auf der FOSSGIS 2014 in
-Berlin.
+Herzlich Willkommen beim **OpenLayers 3 Workshop**.
 
 Dieser Workshop soll Ihnen einen umfassenden Überblick über ol3 als
 Web-Mapping-Lösung geben. Die Übungen setzen voraus, dass Sie einen lokalen
@@ -18,8 +17,7 @@ Die folgenden Module werden in diesem Workshop behandelt:
 .. rubric:: Grundlagen
 
 :ref:`setup`
-  Vorarbeiten für den Workshop. Behandelt auch die OSGeo Live-DVD
-  Besonderheiten.
+  Vorarbeiten für den Workshop.
 
 :ref:`config`
   Lernen Sie, wie man eine ol3-Karte einer Webseite hinzufügt.

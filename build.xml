@@ -2,7 +2,7 @@
 <project name="ol_workshop" default="dist" basedir=".">
 
     <description>
-        FOSSGIS 2014 OpenLayers Workshop Builder
+        OpenLayers 3 Workshop Builder
     </description>
 
     <property name="src" location="src"/>
